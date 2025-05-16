@@ -4,10 +4,7 @@ import json
 # === Configurazione ===
 MODEL_ID = "qwen3-8b"
 API_URL = "http://127.0.0.1:1234/v1/chat/completions"
-
-# === Carica il prompt iniziale dell’utente ===
-with open("user_prompt.txt", "r") as f:
-    user_prompt = f.read().strip()
+Prompt_File = "user_prompt.txt"
 
 # === Carica la checklist ===
 with open("checklist.json", "r") as f:
@@ -26,10 +23,23 @@ def build_verify_prompt(prompt):
 fill_prompt_base = (
     "La checklist non è completa. "
     "Chiedi all'utente una sola informazione mancante alla volta, "
-    "proponendo, se necessario, dei valori di default e chiedendo conferma."  
+    "proponendo, se necessario, dei valori di default e chiedendo conferma."
 )
 
+# Prompt per aggiornare il file con la risposta contestualizzata
+def build_update_prompt(existing_prompt, user_response):
+    return (
+        "Integra la seguente risposta dell'utente nel prompt esistente, mantenendo il contesto e la formattazione originale. "
+        "Il risultato deve essere un unico prompt coerente e completo.\n\n" +
+        "Prompt esistente:\n" + existing_prompt +
+        "\n\nRisposta utente:\n" + user_response
+    )
+
 while True:
+    # === Rileggi il prompt aggiornato ===
+    with open(Prompt_File, "r") as f:
+        user_prompt = f.read().strip()
+
     # 1) Verifica completamento checklist
     verify_prompt = build_verify_prompt(user_prompt)
     resp_check = requests.post(
@@ -48,7 +58,7 @@ while True:
         # Genera riassunto per utente
         summary_prompt = (
             "Hai raccolto tutte le informazioni dalla checklist. "
-            "Fornisci un breve riassunto schematizzato dei punti raccolti:"  
+            "Fornisci un breve riassunto schematizzato dei punti raccolti:"
         )
         resp_summary = requests.post(
             API_URL,
@@ -104,8 +114,25 @@ while True:
     print(f"\n🤖 Domanda per utente:\n{question}")
 
     # Ricevi risposta utente
-    user_input = input("\n👤 Tu: ")
-    # Aggiorna il prompt utente
-    user_prompt += "\n" + user_input
+    user_response = input("\n👤 Tu: ")
+
+    # 3) Integra la risposta nel prompt esistente
+    update_prompt = build_update_prompt(user_prompt, user_response)
+    resp_update = requests.post(
+        API_URL,
+        headers={"Content-Type": "application/json"},
+        json={
+            "model": MODEL_ID,
+            "messages": [{"role": "system", "content": update_prompt}],
+            "temperature": 0.7
+        }
+    )
+    updated_prompt = resp_update.json()["choices"][0]["message"]["content"].strip()
+
+    # Sovrascrivi il file del prompt con il contenuto aggiornato
+    with open(Prompt_File, "w") as f:
+        f.write(updated_prompt)
+
+    print(f"[+] Prompt aggiornato e salvato su {Prompt_File}.")
 
 # Fine del ciclo
