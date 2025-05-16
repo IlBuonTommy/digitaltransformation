@@ -1,0 +1,45 @@
+<think>
+Okay, let's start by going through the user's prompt and cross-referencing it with the checklist items.
+
+First, the user mentioned wanting a website about sustainable energies. The main screen has four parts for each energy: solar, wind, thermal, and nuclear, with detailed information. They specified a light green background. 
+
+Now checking the checklist:
+
+1. **Nome del sito e titolo da visualizzare in alto**: The user hasn't provided a specific name or title. I need to ask for that.
+2. **Il sito deve essere monopagina o multipagina?**: The user mentioned "schermata" (screen) with four parts, which suggests it's a single page. But maybe they meant each energy is a separate section on the same page. So likely monopagina.
+3. **Numero e nomi delle sezioni da includere nella pagina principale**: They listed solar, wind, thermal, nuclear. That's four sections. Need to confirm if these are the only ones or if there's more.
+4. **Contenuto e dati principali richiesti per ciascuna sezione elencata**: The user says "informazioni a riguardo" (information about each), but specifics like stats, benefits, how it works? Need to ask for details.
+5. **Se devono essere presenti immagini: dove posizionarle e che tipo di immagini**: They didn't mention images. Should I assume they want them or ask? Maybe suggest adding images and ask where to place them (e.g., each section, hero image) and what type (infographics, icons, photos).
+6. **Colore di sfondo desiderato**: Light green is specified.
+7. **Colore del testo desiderato**: Not mentioned. Need to ask or suggest a default, like dark text for contrast.
+
+So missing items are site name/title, confirm monopagina, detailed content per section, images (placement and type), and text color. I should prompt the user for these details.
+</think>
+
+**Checklist completed?**  
+- **Nome del sito e titolo**: Non specificato. Chiedo conferma.  
+- **Monopagina/multipagina**: Il prompt menziona "schermata" con 4 sezioni, suggerisco monopagina.  
+- **Sezioni principali**: Solar, Eolica, Termica, Nucleare (4 sezioni).  
+- **Contenuto per sezione**: Dettagli su ogni energia (funzionamento, vantaggi, dati statistici?). Chiedo dettagli.  
+- **Immagini**: Non specificato. Suggerisco di aggiungerle e chiedo posizione (es. in cima a ogni sezione) e tipo (es. iconografiche o foto).  
+- **Colore sfondo**: Verde chiaro (specificato).  
+- **Colore testo**: Non specificato. Suggerisco nero per contrasto con il verde.  
+
+---
+
+**Prego di confermare/aggiornare i seguenti punti:**  
+1. Nome del sito e titolo principale (es: "Energia Sostenibile" o altro?).  
+2. Dettagli su cosa includere in ogni sezione (es: dati tecnici, benefici ambientali, costi?).
+
+**Se confermi, riscrivo il prompt chiaro per un sistema multi-agente:**  
+
+---
+
+**Prompt chiarificato per sistema multi-agente:**  
+Progettare un sito web monopagina con sfondo verde chiaro e testo nero.  
+- **Nome del sito**: [Da definire].  
+- **Sezioni principali**: Solare, Eolica, Termica, Nucleare (ognuna con descrizione dettagliata: funzionamento, vantaggi ambientali, dati statistici).  
+- **Immagini**: Icone o grafici a fianco di ogni sezione per illustrare il tipo di energia.  
+- **Stile**: Layout semplice, testo leggibile, colori contrastanti (verde chiaro + nero).  
+
+**Confermi?**

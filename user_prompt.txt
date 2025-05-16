@@ -1,0 +1,1 @@
+Vorrei un sito web che parla di energie sostenibili; la schermata ha 4 parti per ogni energia: solare, eolica, termica e nucleare con informazioni a rigurado. Lo sfondo deve essere verde chiaro. 
