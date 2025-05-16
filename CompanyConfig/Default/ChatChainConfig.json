@@ -20,7 +20,7 @@
         {
             "phase": "CodeCompleteAll",
             "phaseType": "ComposedPhase",
-            "cycleNum": 1,
+            "cycleNum": 10,
             "Composition": [{
                 "phase": "CodeComplete",
                 "phaseType": "SimplePhase",
@@ -31,7 +31,7 @@
         {
             "phase": "CodeReview",
             "phaseType": "ComposedPhase",
-            "cycleNum": 1,
+            "cycleNum": 3,
             "Composition": [{
                     "phase": "CodeReviewComment",
                     "phaseType": "SimplePhase",
@@ -49,7 +49,7 @@
         {
             "phase": "Test",
             "phaseType": "ComposedPhase",
-            "cycleNum": 1,
+            "cycleNum": 3,
             "Composition": [{
                     "phase": "TestErrorSummary",
                     "phaseType": "SimplePhase",
