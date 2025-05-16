@@ -14,22 +14,24 @@ with open("checklist.json", "r") as f:
     checklist = json.load(f)["checklist"]
 
 # Prompt di verifica completamento
-verify_prompt = (
-    "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. "
-    "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
-    "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-    "\n\nPrompt attuale:\n" + user_prompt
-)
+def build_verify_prompt(prompt):
+    return (
+        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. "
+        "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
+        "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
+        "\n\nPrompt attuale:\n" + prompt
+    )
 
 # Prompt per richiedere informazioni mancanti
 fill_prompt_base = (
     "La checklist non è completa. "
     "Chiedi all'utente una sola informazione mancante alla volta, "
-    "proponendo, se necessario, dei valori di default e chiedendo conferma."
+    "proponendo, se necessario, dei valori di default e chiedendo conferma."  
 )
 
 while True:
     # 1) Verifica completamento checklist
+    verify_prompt = build_verify_prompt(user_prompt)
     resp_check = requests.post(
         API_URL,
         headers={"Content-Type": "application/json"},
@@ -43,10 +45,29 @@ while True:
     print(f"🤖 Verifica checklist: {answer}")
 
     if answer.lower().startswith("yes"):
-        # Tutto completo: riscrivi il prompt in forma tecnica
-        rewrite_system = (
-            "Checklist completed.\n" +
-            "Rewrites the user prompt in a clearer, more technical form for a multi-agent web dev system:\n" +
+        # Genera riassunto per utente
+        summary_prompt = (
+            "Hai raccolto tutte le informazioni dalla checklist. "
+            "Fornisci un breve riassunto schematizzato dei punti raccolti:"  
+        )
+        resp_summary = requests.post(
+            API_URL,
+            headers={"Content-Type": "application/json"},
+            json={
+                "model": MODEL_ID,
+                "messages": [
+                    {"role": "system", "content": summary_prompt},
+                    {"role": "assistant", "content": user_prompt}
+                ],
+                "temperature": 0.5
+            }
+        )
+        summary = resp_summary.json()["choices"][0]["message"]["content"].strip()
+        print(f"\n📋 Riassunto raccolto:\n{summary}")
+
+        # Riscrivi technical prompt
+        rewrite_prompt = (
+            "Rewrites the collected information in a clear, technical, schematic form for a multi-agent web dev system:\n" +
             user_prompt
         )
         resp_rewrite = requests.post(
@@ -54,14 +75,14 @@ while True:
             headers={"Content-Type": "application/json"},
             json={
                 "model": MODEL_ID,
-                "messages": [{"role": "system", "content": rewrite_system}],
+                "messages": [{"role": "system", "content": rewrite_prompt}],
                 "temperature": 0.7
             }
         )
-        final = resp_rewrite.json()["choices"][0]["message"]["content"]
+        final_prompt = resp_rewrite.json()["choices"][0]["message"]["content"].strip()
         with open("prompt_chatdev.txt", "w") as f:
-            f.write(final)
-        print("\n[✓] Prompt finale salvato in prompt_chatdev.txt")
+            f.write(final_prompt)
+        print("\n[✓] Prompt tecnico salvato in prompt_chatdev.txt")
         break
 
     # 2) Richiesta di chiarimento o default
@@ -87,10 +108,4 @@ while True:
     # Aggiorna il prompt utente
     user_prompt += "\n" + user_input
 
-    # Ricostruisci verify_prompt con il prompt aggiornato
-    verify_prompt = (
-        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. "
-        "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
-        "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-        "\n\nPrompt attuale:\n" + user_prompt
-    )
+# Fine del ciclo
