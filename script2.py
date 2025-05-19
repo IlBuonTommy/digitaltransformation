@@ -10,7 +10,7 @@ Prompt_File = "user_prompt.txt"
 with open("checklist.json", "r") as f:
     checklist = json.load(f)["checklist"]
 
-# Prompt di verifica completamento ciaot
+# Prompt di verifica completamento
 def build_verify_prompt(prompt):
     return (
         "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. "
@@ -136,3 +136,4 @@ while True:
     print(f"[+] Prompt aggiornato e salvato su {Prompt_File}.")
 
 # Fine del ciclo
+    

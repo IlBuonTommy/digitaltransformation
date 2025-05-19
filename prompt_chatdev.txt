@@ -1,45 +1,167 @@
 <think>
-Okay, let's start by going through the user's prompt and cross-referencing it with the checklist items.
+Okay, the user wants a website about sustainable energy sources called "Energia Sostenibile Verde." Let me break down their request step by step.
 
-First, the user mentioned wanting a website about sustainable energies. The main screen has four parts for each energy: solar, wind, thermal, and nuclear, with detailed information. They specified a light green background. 
+First, the main title needs to be at the top. They mentioned it should be in Italian, so I'll make sure that's clear. The site is monopage, which means all sections are on one page without scrolling. That’s good for simplicity and user experience.
 
-Now checking the checklist:
+They specified four sections: solar, wind, thermal, and nuclear energy. Each section needs general info about the respective source. I should structure each section with a heading, description, and an image. The images should be on the left side of each section, so I'll need to use CSS for layout, maybe flexbox or grid.
 
-1. **Nome del sito e titolo da visualizzare in alto**: The user hasn't provided a specific name or title. I need to ask for that.
-2. **Il sito deve essere monopagina o multipagina?**: The user mentioned "schermata" (screen) with four parts, which suggests it's a single page. But maybe they meant each energy is a separate section on the same page. So likely monopagina.
-3. **Numero e nomi delle sezioni da includere nella pagina principale**: They listed solar, wind, thermal, nuclear. That's four sections. Need to confirm if these are the only ones or if there's more.
-4. **Contenuto e dati principali richiesti per ciascuna sezione elencata**: The user says "informazioni a riguardo" (information about each), but specifics like stats, benefits, how it works? Need to ask for details.
-5. **Se devono essere presenti immagini: dove posizionarle e che tipo di immagini**: They didn't mention images. Should I assume they want them or ask? Maybe suggest adding images and ask where to place them (e.g., each section, hero image) and what type (infographics, icons, photos).
-6. **Colore di sfondo desiderato**: Light green is specified.
-7. **Colore del testo desiderato**: Not mentioned. Need to ask or suggest a default, like dark text for contrast.
+The background color is light green, and text is black. That’s straightforward in CSS. But wait, they mentioned "sfondo verde chiaro" which translates to light green. I should use a hex code like #d0f0c0 or similar. Text color is black, so #000000.
 
-So missing items are site name/title, confirm monopagina, detailed content per section, images (placement and type), and text color. I should prompt the user for these details.
+Now, considering it's for a multi-agent system, the structure needs to be modular and scalable. Each section can be a component with its own HTML and CSS. Maybe using classes for consistency. Also, ensuring that images are properly placed and responsive.
+
+Wait, they want the images on the left of each section. So in HTML, each section could have a div for the image and another for the content. Using flexbox to align them side by side. That way, it's easy to manage and adjust later.
+
+The user might not have mentioned responsiveness, but since it's a website, it's good practice. Maybe add media queries to stack images and text on smaller screens. But they didn't specify, so maybe keep it simple unless required.
+
+Also, the main title should be prominent. Using h1 tag with appropriate styling. The sections can use h2 for headings. Each section’s content should be concise but informative, as per their request for general info.
+
+I need to make sure all elements are properly structured in HTML and styled in CSS. Maybe include a container div for the entire page to center it. Also, ensure that the layout is clean and meets accessibility standards, like proper contrast between text and background.
+
+Wait, the user mentioned "sistema multi-agente per lo sviluppo web" which translates to a multi-agent system for web development. So maybe they want this structure to be part of an agent-based system where each section can be managed by different agents. That suggests modularity and separation of concerns. Each section could be a component that agents can interact with or update independently.
+
+Therefore, the HTML should have clear sections with classes, making it easy for agents to target specific parts. The CSS should be organized into separate files or within style tags for clarity. Also, ensuring that the site is semantic with proper HTML5 elements like header, section, article, etc.
+
+I think I’ve covered all the points. Now, structuring the response with clear sections and technical details as per their request.
 </think>
 
-**Checklist completed?**  
-- **Nome del sito e titolo**: Non specificato. Chiedo conferma.  
-- **Monopagina/multipagina**: Il prompt menziona "schermata" con 4 sezioni, suggerisco monopagina.  
-- **Sezioni principali**: Solar, Eolica, Termica, Nucleare (4 sezioni).  
-- **Contenuto per sezione**: Dettagli su ogni energia (funzionamento, vantaggi, dati statistici?). Chiedo dettagli.  
-- **Immagini**: Non specificato. Suggerisco di aggiungerle e chiedo posizione (es. in cima a ogni sezione) e tipo (es. iconografiche o foto).  
-- **Colore sfondo**: Verde chiaro (specificato).  
-- **Colore testo**: Non specificato. Suggerisco nero per contrasto con il verde.  
+**Schema Tecnico per Sito Web "Energia Sostenibile Verde"**
 
 ---
 
-**Prego di confermare/aggiornare i seguenti punti:**  
-1. Nome del sito e titolo principale (es: "Energia Sostenibile" o altro?).  
-2. Dettagli su cosa includere in ogni sezione (es: dati tecnici, benefici ambientali, costi?).
+### **1. Struttura HTML (Monopagina)**
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Energia Sostenibile Verde</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Energia Sostenibile Verde</h1>
+  </header>
 
-**Se confermi, riscrivo il prompt chiaro per un sistema multi-agente:**  
+  <!-- Sezioni (4 fonti di energia) -->
+  <main class="container">
+    <section class="energy-section">
+      <div class="image-wrapper">
+        <img src="solar.jpg" alt="Pannello Solare">
+      </div>
+      <div class="content">
+        <h2>Energy Solare</h2>
+        <p>Descrizione breve della fonte energetica solare...</p>
+      </div>
+    </section>
+
+    <section class="energy-section">
+      <div class="image-wrapper">
+        <img src="wind.jpg" alt="Turbine Eoliche">
+      </div>
+      <div class="content">
+        <h2>Energia Eolica</h2>
+        <p>Descrizione breve della fonte energetica eolica...</p>
+      </div>
+    </section>
+
+    <section class:
+      <div class="image-wrapper">
+        <img src="thermal.jpg" alt="Collettori Termici">
+      </div>
+      <div class="content">
+        <h2>Energia Termica</h2>
+        <p>Descrizione breve della fonte energetica termica...</p>
+      </div>
+    </section>
+
+    <section class="energy-section">
+      <div class="image-wrapper">
+        <img src="nuclear.jpg" alt="Reattore Nucleare">
+      </div>
+      <div class="content">
+        <h2>Energia Nucleare</h2>
+        <p>Descrizione breve della fonte energetica nucleare...</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+```
 
 ---
 
-**Prompt chiarificato per sistema multi-agente:**  
-Progettare un sito web monopagina con sfondo verde chiaro e testo nero.  
-- **Nome del sito**: [Da definire].  
-- **Sezioni principali**: Solare, Eolica, Termica, Nucleare (ognuna con descrizione dettagliata: funzionamento, vantaggi ambientali, dati statistici).  
-- **Immagini**: Icone o grafici a fianco di ogni sezione per illustrare il tipo di energia.  
-- **Stile**: Layout semplice, testo leggibile, colori contrastanti (verde chiaro + nero).  
+### **2. CSS (Stile)**
+```css
+/* Stili globali */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #d0f0c0; /* Verde chiaro */
+  color: #000000; /* Testo nero */
+}
 
-**Confermi?**
+.header {
+  text-align: center;
+  padding: 20px;
+  background-color: #a8e6a3; /* Sfondo header */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+}
+
+.energy-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.image-wrapper img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.content h2 {
+  margin-top: 0;
+}
+
+/* Risposta a schermo mobile */
+@media (max-width: 768px) {
+  .energy-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+```
+
+---
+
+### **3. Descrizione Tecnica (Sistema Multi-Agente)**
+- **Modularità**: Ogni sezione (`energy-section`) è un componente autonomo, gestibile da agenti diversi per aggiornamento o modifica.
+- **Layout Flexbox**: Utilizzato per allineare immagini e testo in riga su desktop, con risposta mobile tramite media queries.
+- **Stile Consistente**: Sfondo verde chiaro (`#d0f0c0`) e testo nero (`#000000`) per alta leggibilità.
+- **Risorse Immagine**: Le immagini sono posizionate a sinistra, con `alt` descrittivo per accessibilità.
+- **Scalabilità**: Struttura HTML semantica e CSS separato permettono estensioni future (es. aggiunta di sezioni o interattività).
+
+---
+
+### **4. Note Aggiuntive**
+- Le immagini devono essere ottimizzate per velocità di caricamento.
+- I testi delle sezioni possono essere gestiti da agenti di contenuti con logica di modifica dinamica.
+- Il sistema è adatto a un ambiente multi-agente dove ogni agente gestisce una parte specifica del sito (es. layout, stile, dati).
+
+--- 
+
+**Output finale**: Un sito web monopagina, strutturato in modo tecnico e scalabile per un sistema multi-agente.

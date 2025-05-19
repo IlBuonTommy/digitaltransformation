@@ -1,1 +1,5 @@
-Vorrei un sito web che parla di energie sostenibili; la schermata ha 4 parti per ogni energia: solare, eolica, termica e nucleare con informazioni a rigurado. Lo sfondo deve essere verde chiaro. 
+<think>
+</think>
+
+**Prompt aggiornato:**  
+Vorrei un sito web che parla di energie sostenibili; il nome del sito è "Energia Sostenibile Verde" e il titolo principale deve essere visualizzato in alto. Il sito deve essere monopagina, con quattro sezioni dedicate alle fonti di energia: solare, eolica, termica e nucleare. Ogni sezione dovrà contenere informazioni generali riguardo a quella specifica fonte energetica. Le immagini devono essere posizionate a sinistra delle sezioni e rappresentare l'energia corrispondente (es: pannello solare, turbine eoliche, collettori termici, reattore nucleare). Lo sfondo deve essere verde chiaro e il testo nero.
