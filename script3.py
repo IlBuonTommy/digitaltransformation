@@ -51,25 +51,21 @@ def chatdev_invoke(final_prompt: str):
 # Prompt di verifica completamento 
 def build_verify_prompt(prompt):
     return (
-        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari. "
-        "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
-        "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-        "\n\nPrompt attuale:\n" + prompt
+        "Verifica se ogni singolo punto della seguente checklist è esplicitamente soddisfatto dal prompt. "
+        "Non basta che siano solo accennati o impliciti. "
+        "Controlla punto per punto, e rispondi con 'Yes' solo se TUTTI i punti sono presenti e soddisfatti. "
+        "In caso contrario, rispondi 'No'. NON aggiungere o inventare nulla.\n\n" +
+        "Checklist:\\n" + "\\n".join(f"- {item}" for item in checklist) +
+        "\\n\\nPrompt attuale:\\n" + prompt
     )
-
-# Prompt per richiedere informazioni mancanti
-fill_prompt_base = (
-    "La checklist non è completa. "
-    "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale, "
-    "proponendo, se necessario, dei valori di default."
-)
 
 # Prompt per aggiornare il file con la risposta contestualizzata
 def build_update_prompt(existing_prompt, user_response, question):
     return (
-        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt in base alla domanda che gli era stata fatta. "
-        "Il risultato deve essere un unico prompt coerente e completo. Il prompt aggiornato deve contenere anche i nuovi parametri definiti dall'utente."
-        "Aggiorna solo con le informazioni esplicitamente definite dall'utente. Se un valore di default che hai proposto è confermato aggiungilo, altrimenti non specificare nulla, nemmeno i valori di default.\n\n" +
+        "Aggiorna il prompt esistente solo se la risposta dell'utente contiene informazioni chiare e specifiche in relazione alla domanda fatta. "
+        "Non inventare o dedurre nulla: se l'utente non risponde in modo chiaro, lascia il prompt invariato e segnala che manca la risposta. "
+        "Inserisci solo informazioni esplicitamente presenti nella risposta. Non riscrivere o riformulare altre parti del prompt. "
+        "Il prompt deve contenere solo fatti forniti direttamente dall'utente.\n\n" +
         "Prompt esistente:\n" + existing_prompt +
         "\n\nRisposta utente:\n" + user_response +
         "\n\nDomanda all'utente:\n" + question
@@ -132,7 +128,7 @@ while True:
 
         # Riscrivi technical prompt
         rewrite_prompt = (
-            "Riscrivi le informazioni raccolte in una forma tecnica, chiara e schematica, adatta a un sistema multi-agente per lo sviluppo web:\n" +
+            "Riscrivi le informazioni raccolte in una forma tecnica, chiara e schematica, adatta a un sistema multi-agente per lo sviluppo web:\\n" +
             user_prompt
         )
         resp_rewrite = requests.post(
@@ -163,9 +159,10 @@ while True:
         print("❌ Checklist non completata. Procedo con la richiesta di chiarimenti.")
         # 2) Richiesta di chiarimento o default
         fill_prompt = (
-            fill_prompt_base + "\n\n" +
-            "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-            "\n\nPrompt attuale:\n" + user_prompt
+            "La checklist non è completa. "
+            "Chiedi all'utente le informazioni mancanti nel prompt attuale per completare la checklist." + "\\n\\n" +
+            "Checklist:\\n" + "\\n".join(f"- {item}" for item in checklist) +
+            "\\n\\nPrompt attuale:\\n" + user_prompt
         )
         resp_fill = requests.post(
             API_URL,
@@ -195,7 +192,7 @@ while True:
             json={
                 "model": MODEL_ID,
                 "messages": [{"role": "system", "content": update_prompt}],
-                "temperature": 0.2
+                "temperature": 0.0
             }
         )
         try:
