@@ -1,6 +1,8 @@
 import requests
 import json
 import re
+import subprocess
+import shlex
 
 # === Configurazione ===
 MODEL_ID = "qwen3-8b"
@@ -11,10 +13,45 @@ Prompt_File = "user_prompt.txt"
 with open("checklist.json", "r") as f:
     checklist = json.load(f)["checklist"]
 
+# Funzione per invocare il modello ChatDev
+def chatdev_invoke(final_prompt: str):
+    """
+    Invoca chat_dev (run.py) con:
+      python3 run.py --task "[final_prompt]" --name "[project_name]"
+    """
+    # Costruisci il comando, facendo escaping dei parametri
+    cmd = [
+        "python3",
+        "run.py",
+        "--task", final_prompt,
+        "--name", "progetto_1"  # Nome del progetto, può essere parametrizzato
+    ]
+    try:
+        print(f"[→] Invocazione: {' '.join(shlex.quote(c) for c in cmd)}")
+        result = subprocess.run(
+            cmd,
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        print("[✓] chat_dev eseguito con successo.")
+        print("Output:")
+        print(result.stdout)
+        if result.stderr:
+            print("Errori (stderr):")
+            print(result.stderr)
+    except subprocess.CalledProcessError as e:
+        print(f"[✗] Errore durante l'invocazione di chat_dev (rc={e.returncode}):")
+        print(e.stdout)
+        print(e.stderr)
+    except FileNotFoundError:
+        print("[✗] File run.py non trovato o python3 non installato.")
+
+
 # Prompt di verifica completamento 
 def build_verify_prompt(prompt):
     return (
-        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. "
+        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari. "
         "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
         "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
         "\n\nPrompt attuale:\n" + prompt
@@ -24,19 +61,18 @@ def build_verify_prompt(prompt):
 fill_prompt_base = (
     "La checklist non è completa. "
     "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale, "
-    "proponendo, se necessario, dei valori di default e chiedendo conferma."
+    "proponendo, se necessario, dei valori di default."
 )
 
 # Prompt per aggiornare il file con la risposta contestualizzata
-def build_update_prompt(existing_prompt, user_response, answer):
+def build_update_prompt(existing_prompt, user_response, question):
     return (
-        "Integra i requisiti elencati dall'utente nella sua risposta nel prompt esistente, mantenendo il contesto originale. "
-        "Il risultato deve essere un unico prompt coerente e completo. Attieniti alla checklist, ovvero il prompt aggiornato deve contenere anche i nuovi parametri definiti dall'utente e consoni alla checklist se non erano stati definiti nel prompt utente."
-        "Se i valori di default della risposta del modello sono stati confermati nella risposta dell'utente, includili nel prompt aggiornato.\n\n" +
+        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt in base alla domanda che gli era stata fatta. "
+        "Il risultato deve essere un unico prompt coerente e completo. Il prompt aggiornato deve contenere anche i nuovi parametri definiti dall'utente."
+        "Aggiorna solo con le informazioni esplicitamente definite dall'utente. Se un valore di default che hai proposto è confermato aggiungilo, altrimenti non specificare nulla, nemmeno i valori di default.\n\n" +
         "Prompt esistente:\n" + existing_prompt +
         "\n\nRisposta utente:\n" + user_response +
-        "\n\nChecklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-        "\n\nRisposta della verifica:\n" + answer
+        "\n\nDomanda all'utente:\n" + question
     )
 
 while True:
@@ -56,7 +92,7 @@ while True:
         }
     )
     try:
-        answer = resp_check.json()["choices"][0]["message"]["content"].strip()
+        question = resp_check.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         print("Errore nella risposta dell'API (verifica checklist):", e)
         print("Risposta API:", resp_check.text)
@@ -119,6 +155,7 @@ while True:
             with open("prompt_chatdev.txt", "w", encoding="utf-8") as f:
                 f.write(final_prompt)
             print("\n[✓] Prompt tecnico salvato in prompt_chatdev.txt")
+            chatdev_invoke(final_prompt)
         else:
             print("Attenzione: il prompt tecnico generato è vuoto!")
         break
@@ -151,7 +188,7 @@ while True:
         user_response = input("\n👤 Tu: ")
 
         # 3) Integra la risposta nel prompt esistente
-        update_prompt = build_update_prompt(user_prompt, user_response, answer)
+        update_prompt = build_update_prompt(user_prompt, user_response, question)
         resp_update = requests.post(
             API_URL,
             headers={"Content-Type": "application/json"},

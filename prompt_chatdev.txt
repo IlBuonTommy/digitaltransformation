@@ -1,167 +1,90 @@
 <think>
-Okay, the user wants a website about sustainable energy sources called "Energia Sostenibile Verde." Let me break down their request step by step.
+Okay, the user wants to create a website about candy. Let me start by understanding their requirements. They mentioned the site should cover production process, nutritional values, and disadvantages. The background needs to be an attractive fantasy (like gradients or textures), and the text must be black.
 
-First, the main title needs to be at the top. They mentioned it should be in Italian, so I'll make sure that's clear. The site is monopage, which means all sections are on one page without scrolling. That’s good for simplicity and user experience.
+First, I need to structure the content into sections. Since they specified not to add extra sections, it's best to keep it simple with three main parts: Production Process, Nutritional Values, and Disadvantages. Each section should have a clear title that reflects its content.
 
-They specified four sections: solar, wind, thermal, and nuclear energy. Each section needs general info about the respective source. I should structure each section with a heading, description, and an image. The images should be on the left side of each section, so I'll need to use CSS for layout, maybe flexbox or grid.
+For the design, the background is crucial. They want something creative but not too distracting. Maybe using a gradient from soft pastels to vibrant colors would work well. Adding subtle textures like paper or sugar crystals could enhance the candy theme without overwhelming the text.
 
-The background color is light green, and text is black. That’s straightforward in CSS. But wait, they mentioned "sfondo verde chiaro" which translates to light green. I should use a hex code like #d0f0c0 or similar. Text color is black, so #000000.
+The text color is black, so I need to ensure that the contrast with the background is sufficient for readability. If the background has light elements, black text will stand out. However, if the gradient includes darker tones, maybe a slightly lighter black or white text might be better, but the user specifically asked for black, so I'll stick with that.
 
-Now, considering it's for a multi-agent system, the structure needs to be modular and scalable. Each section can be a component with its own HTML and CSS. Maybe using classes for consistency. Also, ensuring that images are properly placed and responsive.
+Including images of candies in the header would make the site more engaging. A banner image showing various candies could draw users in. For the nutritional values, a bar chart would visually represent data like calories and sugar content effectively. The user mentioned default values for graphs, so I can use standard metrics unless they provide specific data.
 
-Wait, they want the images on the left of each section. So in HTML, each section could have a div for the image and another for the content. Using flexbox to align them side by side. That way, it's easy to manage and adjust later.
+I should also consider the layout. A single-page design with clear sections separated by spacing will keep it clean. Each section should have a heading, some descriptive text, and maybe bullet points for key information. The navigation could be minimal since it's a monopage site, perhaps just a simple menu at the top or bottom.
 
-The user might not have mentioned responsiveness, but since it's a website, it's good practice. Maybe add media queries to stack images and text on smaller screens. But they didn't specify, so maybe keep it simple unless required.
+Wait, the user said not to add extra sections, so I need to make sure there are no additional pages or menus beyond the three main sections. Also, they want the text in black, so I'll ensure that all text elements are set to black without any exceptions.
 
-Also, the main title should be prominent. Using h1 tag with appropriate styling. The sections can use h2 for headings. Each section’s content should be concise but informative, as per their request for general info.
+Testing the color contrast is important. If the background gradient has light areas, black text will be fine. But if parts of the gradient are dark, maybe using a slightly lighter text color would help, but since the user specified black, I'll proceed with that.
 
-I need to make sure all elements are properly structured in HTML and styled in CSS. Maybe include a container div for the entire page to center it. Also, ensure that the layout is clean and meets accessibility standards, like proper contrast between text and background.
+Including a footer might be useful for contact info or additional links, but the user didn't mention it. Since they want a simple layout, perhaps keeping the footer minimal or omitting it altogether is better to avoid extra sections.
 
-Wait, the user mentioned "sistema multi-agente per lo sviluppo web" which translates to a multi-agent system for web development. So maybe they want this structure to be part of an agent-based system where each section can be managed by different agents. That suggests modularity and separation of concerns. Each section could be a component that agents can interact with or update independently.
-
-Therefore, the HTML should have clear sections with classes, making it easy for agents to target specific parts. The CSS should be organized into separate files or within style tags for clarity. Also, ensuring that the site is semantic with proper HTML5 elements like header, section, article, etc.
-
-I think I’ve covered all the points. Now, structuring the response with clear sections and technical details as per their request.
+Overall, the structure should be straightforward: header image, three main sections with headings and content, and maybe a closing note at the end. The design elements like gradients and textures should complement the candy theme without overshadowing the text.
 </think>
 
-**Schema Tecnico per Sito Web "Energia Sostenibile Verde"**
+**Schema Tecnico per Sito Web su Caramelle (Multi-Agente)**  
+*Formato adatto a un sistema di sviluppo web con agenti collaborativi*
 
 ---
 
-### **1. Struttura HTML (Monopagina)**
-```html
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Energia Sostenibile Verde</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Header -->
-  <header class="header">
-    <h1>Energia Sostenibile Verde</h1>
-  </header>
-
-  <!-- Sezioni (4 fonti di energia) -->
-  <main class="container">
-    <section class="energy-section">
-      <div class="image-wrapper">
-        <img src="solar.jpg" alt="Pannello Solare">
-      </div>
-      <div class="content">
-        <h2>Energy Solare</h2>
-        <p>Descrizione breve della fonte energetica solare...</p>
-      </div>
-    </section>
-
-    <section class="energy-section">
-      <div class="image-wrapper">
-        <img src="wind.jpg" alt="Turbine Eoliche">
-      </div>
-      <div class="content">
-        <h2>Energia Eolica</h2>
-        <p>Descrizione breve della fonte energetica eolica...</p>
-      </div>
-    </section>
-
-    <section class:
-      <div class="image-wrapper">
-        <img src="thermal.jpg" alt="Collettori Termici">
-      </div>
-      <div class="content">
-        <h2>Energia Termica</h2>
-        <p>Descrizione breve della fonte energetica termica...</p>
-      </div>
-    </section>
-
-    <section class="energy-section">
-      <div class="image-wrapper">
-        <img src="nuclear.jpg" alt="Reattore Nucleare">
-      </div>
-      <div class="content">
-        <h2>Energia Nucleare</h2>
-        <p>Descrizione breve della fonte energetica nucleare...</p>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
-```
+### **1. Struttura del Contenuto**
+- **Sezioni principali**:  
+  - `ProcessoProduzione`  
+    - Descrizione: Fasi della produzione (es. estrazione, caramellizzazione, raffreddamento).  
+    - Tipo di dati: Testo strutturato, elenco puntato.  
+  - `ValoriNutrizionali`  
+    - Descrizione: Calorie, zuccheri, grassi, ecc. (grafico a barre o tabella).  
+    - Tipo di dati: Dati numerici, grafico interattivo.  
+  - `Svantaggi`  
+    - Descrizione: Effetti negativi su salute, dipendenza, impatto ambientale.  
+    - Tipo di dati: Testo con punti chiave.  
 
 ---
 
-### **2. CSS (Stile)**
-```css
-/* Stili globali */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #d0f0c0; /* Verde chiaro */
-  color: #000000; /* Testo nero */
-}
-
-.header {
-  text-align: center;
-  padding: 20px;
-  background-color: #a8e6a3; /* Sfondo header */
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 20px;
-}
-
-.energy-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 30px;
-}
-
-.image-wrapper img {
-  width: 300px;
-  height: auto;
-  border-radius: 10px;
-}
-
-.content h2 {
-  margin-top: 0;
-}
-
-/* Risposta a schermo mobile */
-@media (max-width: 768px) {
-  .energy-section {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .image-wrapper img {
-    width: 100%;
-    max-width: 400px;
-  }
-}
-```
+### **2. Aspetto Visivo**
+- **Colore del testo**: Nero (standard).  
+- **Sfondo**: Fantasia dinamica (es. gradienti colorati o texture creative).  
+  - Esempio: Gradienti da rosa pastello a giallo acceso, con effetti di trama leggera.  
+- **Immagine testata**: Immagine di caramelle in primo piano (es. banner con dettagli visivi).  
+- **Font**: Standard leggibile (es. Arial, Helvetica), dimensione 16px per testo normale.  
 
 ---
 
-### **3. Descrizione Tecnica (Sistema Multi-Agente)**
-- **Modularità**: Ogni sezione (`energy-section`) è un componente autonomo, gestibile da agenti diversi per aggiornamento o modifica.
-- **Layout Flexbox**: Utilizzato per allineare immagini e testo in riga su desktop, con risposta mobile tramite media queries.
-- **Stile Consistente**: Sfondo verde chiaro (`#d0f0c0`) e testo nero (`#000000`) per alta leggibilità.
-- **Risorse Immagine**: Le immagini sono posizionate a sinistra, con `alt` descrittivo per accessibilità.
-- **Scalabilità**: Struttura HTML semantica e CSS separato permettono estensioni future (es. aggiunta di sezioni o interattività).
+### **3. Layout**
+- **Monopagina** con sezioni distanziate (margini di 40px tra blocchi).  
+- **Ordine visivo**:  
+  1. Header (immagine + titolo generale).  
+  2. Sezione `ProcessoProduzione`.  
+  3. Sezione `ValoriNutrizionali` (grafico a barre o tabella).  
+  4. Sezione `Svantaggi`.  
+  5. Footer (opzionale: link, copyright).  
 
 ---
 
-### **4. Note Aggiuntive**
-- Le immagini devono essere ottimizzate per velocità di caricamento.
-- I testi delle sezioni possono essere gestiti da agenti di contenuti con logica di modifica dinamica.
-- Il sistema è adatto a un ambiente multi-agente dove ogni agente gestisce una parte specifica del sito (es. layout, stile, dati).
+### **4. Parametri di Design**
+- **Contrasto**: Testo nero su sfondo leggermente chiaro per massima leggibilità.  
+- **Grafici**:  
+  - Valori nutrizionali in barre colorate (es. rosso per zuccheri, verde per calorie).  
+  - Opzione di zoom/espansione per dettagli.  
+- **Texture**: Effetti di trama leggera su sfondo (es. texture di caramella o carta).  
 
---- 
+---
 
-**Output finale**: Un sito web monopagina, strutturato in modo tecnico e scalabile per un sistema multi-agente.
+### **5. Funzionalità Aggiuntive**
+- **Agenti collaborativi**:  
+  - `AgenteContenuti`: Gestione testo e dati.  
+  - `AgenteDesign`: Controllo aspetto visivo (sfondo, colori, layout).  
+  - `AgenteGrafico`: Generazione grafici dinamici.  
+- **Interattività**:  
+  - Possibilità di espandere sezioni con pulsanti ("Mostra dettagli").  
+  - Grafico interattivo per valori nutrizionali (es. hover per dati).  
+
+---
+
+### **6. Output Finale**
+- **Formato**: HTML + CSS + JavaScript (per grafici dinamici).  
+- **Esportazione**: File singolo o sistema modulare con agenti dedicati.  
+- **Note**: Mantenere layout semplice, evitare sezioni extra.  
+
+---
+
+**Conclusione**:  
+Il sito sarà un'esperienza visivamente accattivante e informativa, strutturata in modo chiaro per utenti finali e sviluppatori multi-agente.
