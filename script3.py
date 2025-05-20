@@ -47,11 +47,10 @@ def chatdev_invoke(final_prompt: str):
     except FileNotFoundError:
         print("[✗] File run.py non trovato o python3 non installato.")
 
-
 # Prompt di verifica completamento 
 def build_verify_prompt(prompt):
     return (
-        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari. "
+        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari nel prompt."
         "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
         "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
         "\n\nPrompt attuale:\n" + prompt
@@ -60,20 +59,22 @@ def build_verify_prompt(prompt):
 # Prompt per richiedere informazioni mancanti
 fill_prompt_base = (
     "La checklist non è completa. "
-    "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale, "
-    "proponendo, se necessario, dei valori di default."
+    "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale."
+    #"proponendo, se necessario, dei valori di default."
 )
 
-# Prompt per aggiornare il file con la risposta contestualizzata
-def build_update_prompt(existing_prompt, user_response, question):
-    return (
-        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt in base alla domanda che gli era stata fatta. "
-        "Il risultato deve essere un unico prompt coerente e completo. Il prompt aggiornato deve contenere anche i nuovi parametri definiti dall'utente."
-        "Aggiorna solo con le informazioni esplicitamente definite dall'utente. Se un valore di default che hai proposto è confermato aggiungilo, altrimenti non specificare nulla, nemmeno i valori di default.\n\n" +
-        "Prompt esistente:\n" + existing_prompt +
-        "\n\nRisposta utente:\n" + user_response +
-        "\n\nDomanda all'utente:\n" + question
+def build_update_prompt(existing_prompt, user_response):
+    # Rimuove eventuali sezioni <think>...</think> dall'existing_prompt
+    sanitized_prompt = re.sub(r'<think>.*?</think>', '', existing_prompt, flags=re.DOTALL)
+    
+    # Costruisce il prompt di aggiornamento con le istruzioni date
+    updated = (
+        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt esistente.\n"
+        "Il risultato deve essere un unico prompt aggiornato:\n" +
+        "Prompt esistente sanificato:\n" + sanitized_prompt +
+        "\n\nRisposta utente:\n" + user_response
     )
+    return updated
 
 while True:
     # === Rileggi il prompt aggiornato ===
@@ -119,7 +120,7 @@ while True:
                     {"role": "system", "content": summary_prompt},
                     {"role": "assistant", "content": user_prompt}
                 ],
-                "temperature": 0.2
+                "temperature": 0.0
             }
         )
         try:
@@ -173,7 +174,7 @@ while True:
             json={
                 "model": MODEL_ID,
                 "messages": [{"role": "system", "content": fill_prompt}],
-                "temperature": 0.2
+                "temperature": 0.0
             }
         )
         try:
@@ -188,14 +189,14 @@ while True:
         user_response = input("\n👤 Tu: ")
 
         # 3) Integra la risposta nel prompt esistente
-        update_prompt = build_update_prompt(user_prompt, user_response, question)
+        update_prompt = build_update_prompt(user_prompt, user_response)
         resp_update = requests.post(
             API_URL,
             headers={"Content-Type": "application/json"},
             json={
                 "model": MODEL_ID,
                 "messages": [{"role": "system", "content": update_prompt}],
-                "temperature": 0.2
+                "temperature": 0.0
             }
         )
         try:
@@ -205,9 +206,11 @@ while True:
             print("Risposta API:", resp_update.text)
             break
 
+        clean_updated = re.sub(r'<think>.*?</think>', '', updated_prompt, flags=re.DOTALL).strip()
+
     # Sovrascrivi il file del prompt con il contenuto aggiornato
     with open(Prompt_File, "w", encoding="utf-8") as f:
-        f.write(updated_prompt)
+        f.write(clean_updated)
 
     print(f"[+] Prompt aggiornato e salvato su {Prompt_File}.")
 #fine del ciclo

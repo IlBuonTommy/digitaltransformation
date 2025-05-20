@@ -1,11 +1,10 @@
 {
   "checklist": [
-    "Nome del sito e titolo da visualizzare in alto",
-    "Il sito deve essere monopagina o multipagina?",
-    "Numero e nomi delle sezioni da includere nella pagina principale",
-    "Contenuto e dati principali richiesti per ciascuna sezione elencata",
-    "Se devono essere presenti immagini: dove posizionarle e che tipo di immagini",
-    "Colore di sfondo desiderato",
-    "Colore del testo desiderato"
+    "Nome sito",
+    "Numero di pagine",
+    "Numero e nomi sezioni",
+    "immagini: dove",
+    "Colore sfondo",
+    "Colore testo"
   ]
 }
