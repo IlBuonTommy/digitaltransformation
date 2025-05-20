@@ -10,16 +10,19 @@ def create_app():
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Configuratore Sito Web</title>
-  <style>
-    .step { display: none; }
-    .active { display: block; }
-    .navigation { margin-top: 20px; }
-  </style>
 </head>
 <body>
   <h1>Configuratore Sito Web</h1>
   <form id="multiStepForm">
+  <div class="step-indicator">
+    <div class="step-circle active">1</div>
+    <div class="step-circle">2</div>
+    <div class="step-circle">3</div>
+    <div class="step-circle">4</div>
+  </div>
+  
     <!-- Step 1 -->
     <div id="step1" class="step active">
       <h2>Step 1: Informazioni di base</h2>
@@ -82,56 +85,82 @@ def create_app():
     </div>
 
     <div class="navigation">
-      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Indietro</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">Avanti</button>
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+        <i class="fas fa-arrow-left"></i> Indietro
+      </button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">
+        Avanti <i class="fas fa-arrow-right"></i>
+    </button>
     </div>
   </form>
 
   <script>
-    let currentStep = 0;
-    const steps = document.querySelectorAll('.step');
-    function showStep(n) {
-      steps.forEach((s, i) => s.classList.toggle('active', i === n));
-      document.getElementById('prevBtn').style.display = n ? 'inline' : 'none';
-      document.getElementById('nextBtn').textContent = n === steps.length -1 ? 'Fine' : 'Avanti';
-    }
-    function nextPrev(n) {
-      // branch logic Step2 pageType
-      if (currentStep === 1) {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Riferimenti a elementi
+      const pageTypeRadios = document.getElementsByName('pageType');
+      const singleOptions    = document.getElementById('singleOptions');
+      const multiOptions     = document.getElementById('multiOptions');
+      const pageCountInput   = document.getElementById('pageCount');
+      const pagesContainer   = document.getElementById('pagesContainer');
+
+      const userTypeRadios   = document.getElementsByName('userType');
+      const companyFields    = document.getElementById('companyFields');
+      const privateFields    = document.getElementById('privateFields');
+
+      // Funzione per costruire i campi delle pagine
+      function buildPages() {
+        const count = parseInt(pageCountInput.value, 10) || 0;
+        pagesContainer.innerHTML = '';
+        for (let i = 1; i <= count; i++) {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <h4>Pagina ${i}</h4>
+            <label>Titolo: <input type="text" name="pageTitle_${i}" required></label><br>
+            <label>Info: <textarea name="pageInfo_${i}" required></textarea></label><br>
+            <label>Immagini (url): <input type="text" name="pageImages_${i}" placeholder="url1,url2,..."></label><br>
+          `;
+          pagesContainer.appendChild(div);
+        }
+      }
+
+      // Callback al cambio monopagina/multipagina
+      function onPageTypeChange() {
         const mt = document.querySelector('input[name="pageType"]:checked').value;
-        document.getElementById('multiOptions').style.display = mt === 'multi' ? 'block' : 'none';
-        document.getElementById('singleOptions').style.display = mt === 'single' ? 'block' : 'none';
-        if (mt === 'multi' && n>0) buildPages();
+        if (mt === 'single') {
+          singleOptions.style.display = 'block';
+          multiOptions.style.display  = 'none';
+        } else {
+          singleOptions.style.display = 'none';
+          multiOptions.style.display  = 'block';
+          buildPages();
+        }
       }
-      // branch logic Step3 userType
-      if (currentStep === 2) {
+
+      // Callback al cambio azienda/privato
+      function onUserTypeChange() {
         const ut = document.querySelector('input[name="userType"]:checked').value;
-        document.getElementById('companyFields').style.display = ut === 'company' ? 'block' : 'none';
-        document.getElementById('privateFields').style.display = ut === 'private' ? 'block' : 'none';
+        if (ut === 'company') {
+          companyFields.style.display = 'block';
+          privateFields.style.display = 'none';
+        } else {
+          companyFields.style.display = 'none';
+          privateFields.style.display = 'block';
+        }
       }
-      if ((currentStep + n) >= steps.length) {
-        document.getElementById('multiStepForm').submit();
-        return;
-      }
-      currentStep += n;
-      showStep(currentStep);
-    }
-    function buildPages() {
-      const count = parseInt(document.getElementById('pageCount').value) || 0;
-      const container = document.getElementById('pagesContainer');
-      container.innerHTML = '';
-      for (let i=1; i<=count; i++) {
-        const div = document.createElement('div');
-        div.innerHTML = `
-          <h4>Pagina ${i}</h4>
-          <label>Titolo: <input type="text" name="pageTitle_${i}" required></label><br>
-          <label>Info: <textarea name="pageInfo_${i}" required></textarea></label><br>
-          <label>Immagini (url): <input type="text" name="pageImages_${i}" placeholder="url1,url2,..."></label><br>
-        `;
-        container.appendChild(div);
-      }
-    }
-    showStep(currentStep);
+
+      // Registra gli event listener
+      pageTypeRadios.forEach(r => r.addEventListener('change', onPageTypeChange));
+      pageCountInput.addEventListener('input', () => {
+        if (document.querySelector('input[name="pageType"]:checked').value === 'multi') {
+          buildPages();
+        }
+      });
+      userTypeRadios.forEach(r => r.addEventListener('change', onUserTypeChange));
+
+      // Inizializza lo stato delle sezioni
+      onPageTypeChange();
+      onUserTypeChange();
+    });
   </script>
 </body>
 </html>

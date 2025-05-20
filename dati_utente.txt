@@ -1,0 +1,121 @@
+nome_sito: avengers
+target: bimbi
+tema: supereroi e cattivi
+colore_sfondo: #942192
+colore_testo: #000000
+stile: creativo
+mode: multi
+single_page_title: 
+single_page_info: 
+single_page_img: 
+num_pages: 2
+page_1_title: supereroi
+page_1_info: avengers elenco
+page_1_img: ciascuno dei supereroi
+page_2_title: cattivi
+page_2_info: cattivi elenco
+page_2_img: ciascuno dei cattivi
+user_type: privato
+piva: 
+sede: 
+email_azienda: 
+tel_azienda: 
+altro_azienda: 
+email_privato: pippo@gmail.com
+tel_privato: 345678098765
+altro_privato: insta_pippo
+altre_info: insulta i supereroi e fai vincere i cattivi
+----------------------------------------
+nome_sito: avengers
+target: bimbi
+tema: supereroi e cattivi
+colore_sfondo: #942192
+colore_testo: #000000
+stile: creativo
+mode: multi
+single_page_title: 
+single_page_info: 
+single_page_img: 
+num_pages: 2
+page_1_title: supereroi
+page_1_info: avengers elenco
+page_1_img: ciascuno dei supereroi
+page_2_title: cattivi
+page_2_info: cattivi elenco
+page_2_img: ciascuno dei cattivi
+user_type: privato
+piva: 
+sede: 
+email_azienda: 
+tel_azienda: 
+altro_azienda: 
+email_privato: pippo@gmail.com
+tel_privato: 345678098765
+altro_privato: insta_pippo
+altre_info: insulta i supereroi e fai vincere i cattivi
+----------------------------------------
+nome_sito: sdfghjk
+target: dfghg
+target_ai: on
+tema: vbnm
+colore_sfondo: #ffffff
+colore_testo: #000000
+stile: generico
+mode: single
+single_page_title: 
+single_page_info: 
+single_page_img: 
+num_pages: 1
+user_type: azienda
+piva: 
+sede: 
+email_azienda: 
+tel_azienda: 
+altro_azienda: 
+email_privato: 
+tel_privato: 
+altro_privato: 
+altre_info: 
+----------------------------------------
+nome_sito: sdfghjk
+target: inventalo tu
+target_ai: on
+tema: vbnm
+colore_sfondo: #ffffff
+colore_testo: #000000
+stile: generico
+mode: single
+single_page_title: 
+single_page_info: 
+single_page_img: 
+num_pages: 1
+user_type: azienda
+piva: 
+sede: 
+email_azienda: 
+tel_azienda: 
+altro_azienda: 
+email_privato: 
+tel_privato: 
+altro_privato: 
+altre_info: 
+----------------------------------------
+nome_sito: dfghjk
+tema: cvbnm
+colore_sfondo: #ffffff
+colore_testo: #000000
+stile: generico
+mode: single
+single_page_title: 
+single_page_info: 
+single_page_img: 
+num_pages: 1
+user_type: privato
+piva: 
+email_azienda: 
+tel_azienda: 
+email_privato: 
+tel_privato: 
+altro_privato: 
+altre_info: 
+----------------------------------------
