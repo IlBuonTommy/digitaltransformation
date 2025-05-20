@@ -1,0 +1,133 @@
+<think>
+Okay, the user wants to create a website about candy production, nutrition, and disadvantages. Let me break down their query first.
+
+They mentioned a monopage layout with sections on production process, nutritional values, and disadvantages. The background should be an abstract pattern, text in black. They also want images for each section and detailed content. 
+
+First, I need to structure the information clearly. Since it's a multi-agent system for web development, I should outline the components each agent would handle. Let me think about the agents involved: maybe one for design, another for content creation, a third for data visualization, and a fourth for backend integration.
+
+Wait, the user specified "sistema multi-agente per lo sviluppo web" which translates to a multi-agent system for web development. So I need to structure the response in a way that each agent has specific tasks. Let me categorize the tasks into agents like Design Agent, Content Agent, Data Visualization Agent, and Backend Integration Agent.
+
+For the design part, they want an abstract background and black text. The Design Agent should handle color schemes, layout, and image placement. Then the Content Agent will manage the textual information for each section. The Data Visualization Agent can create tables or charts for nutritional values. Finally, the Backend Integration Agent would ensure all elements are properly linked and functional.
+
+I need to make sure each agent's responsibilities are clear and that the system is scalable. Also, considering the user might want additional sections, I should mention flexibility in the design. Let me check if there are any other aspects they mentioned, like images for each section. Yes, so the Design Agent should also handle image placement.
+
+Wait, the user didn't specify a name or title yet, but the prompt says to include placeholders. So I'll note that in the Content Agent's part. Also, the nutritional values need tables or graphs, which the Data Visualization Agent can handle. For the disadvantages section, it's important to present balanced information, so the Content Agent should ensure neutrality.
+
+I should also consider responsiveness and accessibility since it's a web site. Maybe mention that in the Design Agent's responsibilities. Let me structure each agent with their tasks, inputs, outputs, and dependencies. That way, the system is organized and each part can be developed independently.
+
+Double-checking if all user requirements are covered: abstract background, black text, sections on production, nutrition, disadvantages, images, detailed content. Yes, that's all there. Also, the possibility to add more sections as needed. Alright, I think this structure should work.
+</think>
+
+**Struttura Tecnica per un Sistema Multi-Agente nel Sviluppo Web: "Caramelle e Salute"**
+
+---
+
+### **1. Agente di Progettazione (Design Agent)**  
+**Obiettivo:** Definire l'aspetto visivo del sito.  
+- **Input:**  
+  - Nome del sito (es. `CaramelleESalute`)  
+  - Titolo principale (es. `La Dolce Vita: Caramelle e Salute`)  
+  - Colori: Sfondo astratto (pattern geometrico o texture), testo nero, contrasto elevato.  
+- **Output:**  
+  - Layout monopagina con sezioni ben distinte (`Processo di Produzione`, `Valori Nutrizionali`, `Svantaggi`).  
+  - Posizionamento delle immagini (es. foto di caramelle in "Processo", grafici in "Nutrizione").  
+- **Output Tecnico:**  
+  ```css
+  body {
+    background: url('pattern-abstract.png') repeat;
+    color: #000;
+    font-family: 'Arial', sans-serif;
+  }
+  ```
+
+---
+
+### **2. Agente di Contenuti (Content Agent)**  
+**Obiettivo:** Creare testi dettagliati e strutturati per ogni sezione.  
+- **Input:**  
+  - Informazioni tecniche sul processo produttivo (es. fusione, raffreddamento, confezionamento).  
+  - Dati nutrizionali (es. calorie, zuccheri, grassi).  
+  - Svantaggi (es. effetti sulla salute dentale, dipendenza, impatto ambientale).  
+- **Output:**  
+  - Testo chiaro e organizzato per ogni sezione.  
+  - Struttura markdown o HTML semplificato:  
+    ```html
+    <section id="processo">
+      <h2>Processo di Produzione</h2>
+      <p>Descrizione dettagliata del processo...</p>
+    </section>
+    ```
+
+---
+
+### **3. Agente di Visualizzazione Dati (Data Visualization Agent)**  
+**Obiettivo:** Rappresentare dati nutrizionali in modo visibile.  
+- **Input:**  
+  - Tabelle con valori nutrizionali (es. calorie, zuccheri, grassi).  
+- **Output:**  
+  - Grafici o tabelle HTML/JS per migliorare la comprensione:  
+    ```html
+    <div id="nutrition-chart">
+      <!-- Grafico a barre o pie chart con dati nutrizionali -->
+    </div>
+    ```
+  - Script JS (es. Chart.js) per interattività.
+
+---
+
+### **4. Agente di Integrazione Backend (Backend Agent)**  
+**Obiettivo:** Gestire dati dinamici e funzionalità avanzate.  
+- **Input:**  
+  - Database o API per valori nutrizionali (es. JSON).  
+- **Output:**  
+  - Endpoint REST per caricare dati dinamicamente:  
+    ```javascript
+    fetch('/api/nutrition')
+      .then(res => res.json())
+      .then(data => renderChart(data));
+    ```
+  - Possibilità di aggiungere sezioni extra (es. "Curiosità", "Recensioni").
+
+---
+
+### **5. Agente di Test e Validazione (Testing Agent)**  
+**Obiettivo:** Verificare funzionalità, accessibilità e usabilità.  
+- **Input:**  
+  - Layout, contenuti, grafici.  
+- **Output:**  
+  - Report di test:  
+    - Risposta a schermo mobile/tablet.  
+    - Contrasto adeguato (WCAG AA).  
+    - Funzionamento dei grafici e link.
+
+---
+
+### **6. Agente di Estensione (Extension Agent)**  
+**Obiettivo:** Aggiungere funzionalità opzionali.  
+- **Input:**  
+  - Richieste utenti (es. "Aggiungi un forum", "Integrazione social media").  
+- **Output:**  
+  - Moduli di contatto, commenti, condivisione su social.
+
+---
+
+### **Schema Generale del Sito**  
+| Sezione               | Agente Responsabile       | Output Principale                     |
+|-----------------------|----------------------------|----------------------------------------|
+| Design                | Design Agent               | Layout monopagina + stile visivo      |
+| Contenuti             | Content Agent              | Testi strutturati per ogni sezione    |
+| Dati Nutrizionali     | Data Visualization Agent   | Grafici e tabelle interattive         |
+| Backend               | Backend Agent              | API dinamica + integrazione dati      |
+| Test & Validazione    | Testing Agent              | Verifica accessibilità e funzionalità |
+| Estensioni            | Extension Agent            | Funzionalità aggiuntive (opzionale)   |
+
+---
+
+### **Note Finali**  
+- **Flessibilità:** Il sistema è progettato per estendere sezioni o integrare nuove funzionalità.  
+- **Accessibilità:** Garantita tramite contrasto elevato e testo leggibile.  
+- **Scalabilità:** Struttura modulare per aggiungere agenti futuri (es. SEO, analytics).  
+
+--- 
+
+**Output Finale:** Un sito web completo, strutturato in modo chiaro e tecnico, adatto a un sistema multi-agente per lo sviluppo web.

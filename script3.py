@@ -50,7 +50,7 @@ def chatdev_invoke(final_prompt: str):
 # Prompt di verifica completamento 
 def build_verify_prompt(prompt):
     return (
-        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari nel prompt."
+        "Verifica se la seguente checklist è completamente soddisfatta dal prompt utente. Non basta che i vari punti siano solo menzionati, ma devono essere esplicitamente definiti e chiari. "
         "Rispondi SOLO con 'Yes' o 'No'.\n\n" +
         "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
         "\n\nPrompt attuale:\n" + prompt
@@ -59,22 +59,20 @@ def build_verify_prompt(prompt):
 # Prompt per richiedere informazioni mancanti
 fill_prompt_base = (
     "La checklist non è completa. "
-    "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale."
-    #"proponendo, se necessario, dei valori di default."
+    "Chiedi all'utente le informazioni mancanti dalla checklist, confrontandole con il prompt attuale, "
+    "proponendo, se necessario, dei valori di default."
 )
 
-def build_update_prompt(existing_prompt, user_response):
-    # Rimuove eventuali sezioni <think>...</think> dall'existing_prompt
-    sanitized_prompt = re.sub(r'<think>.*?</think>', '', existing_prompt, flags=re.DOTALL)
-    
-    # Costruisce il prompt di aggiornamento con le istruzioni date
-    updated = (
-        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt esistente.\n"
-        "Il risultato deve essere un unico prompt aggiornato:\n" +
-        "Prompt esistente sanificato:\n" + sanitized_prompt +
-        "\n\nRisposta utente:\n" + user_response
+# Prompt per aggiornare il file con la risposta contestualizzata
+def build_update_prompt(existing_prompt, user_response, question):
+    return (
+        "Prendi la risposta dell'utente e usala per aggiungere quelle informazioni al prompt in base alla domanda che gli era stata fatta. "
+        "Il risultato deve essere un unico prompt coerente e completo. Il prompt aggiornato deve contenere anche i nuovi parametri definiti dall'utente."
+        "Aggiorna solo con le informazioni esplicitamente definite dall'utente. Se un valore di default che hai proposto è confermato aggiungilo, altrimenti non specificare nulla, nemmeno i valori di default.\n\n" +
+        "Prompt esistente:\n" + existing_prompt +
+        "\n\nRisposta utente:\n" + user_response +
+        "\n\nDomanda all'utente:\n" + question
     )
-    return updated
 
 while True:
     # === Rileggi il prompt aggiornato ===
@@ -133,7 +131,7 @@ while True:
 
         # Riscrivi technical prompt
         rewrite_prompt = (
-            "Riscrivi le informazioni raccolte in una forma tecnica, chiara e schematica, adatta a un sistema multi-agente per lo sviluppo web:\n" +
+            "Riscrivi le informazioni raccolte in una forma tecnica, chiara e schematica, adatta a un sistema multi-agente per lo sviluppo web:\\n" +
             user_prompt
         )
         resp_rewrite = requests.post(
@@ -164,9 +162,10 @@ while True:
         print("❌ Checklist non completata. Procedo con la richiesta di chiarimenti.")
         # 2) Richiesta di chiarimento o default
         fill_prompt = (
-            fill_prompt_base + "\n\n" +
-            "Checklist:\n" + "\n".join(f"- {item}" for item in checklist) +
-            "\n\nPrompt attuale:\n" + user_prompt
+            "La checklist non è completa. "
+            "Chiedi all'utente le informazioni mancanti nel prompt attuale per completare la checklist." + "\\n\\n" +
+            "Checklist:\\n" + "\\n".join(f"- {item}" for item in checklist) +
+            "\\n\\nPrompt attuale:\\n" + user_prompt
         )
         resp_fill = requests.post(
             API_URL,

@@ -1,77 +1,90 @@
 <think>
+Okay, the user wants to create a website about candy. Let me start by understanding their requirements. They mentioned the site should cover production process, nutritional values, and disadvantages. The background needs to be an attractive fantasy (like gradients or textures), and the text must be black.
+
+First, I need to structure the content into sections. Since they specified not to add extra sections, it's best to keep it simple with three main parts: Production Process, Nutritional Values, and Disadvantages. Each section should have a clear title that reflects its content.
+
+For the design, the background is crucial. They want something creative but not too distracting. Maybe using a gradient from soft pastels to vibrant colors would work well. Adding subtle textures like paper or sugar crystals could enhance the candy theme without overwhelming the text.
+
+The text color is black, so I need to ensure that the contrast with the background is sufficient for readability. If the background has light elements, black text will stand out. However, if the gradient includes darker tones, maybe a slightly lighter black or white text might be better, but the user specifically asked for black, so I'll stick with that.
+
+Including images of candies in the header would make the site more engaging. A banner image showing various candies could draw users in. For the nutritional values, a bar chart would visually represent data like calories and sugar content effectively. The user mentioned default values for graphs, so I can use standard metrics unless they provide specific data.
+
+I should also consider the layout. A single-page design with clear sections separated by spacing will keep it clean. Each section should have a heading, some descriptive text, and maybe bullet points for key information. The navigation could be minimal since it's a monopage site, perhaps just a simple menu at the top or bottom.
+
+Wait, the user said not to add extra sections, so I need to make sure there are no additional pages or menus beyond the three main sections. Also, they want the text in black, so I'll ensure that all text elements are set to black without any exceptions.
+
+Testing the color contrast is important. If the background gradient has light areas, black text will be fine. But if parts of the gradient are dark, maybe using a slightly lighter text color would help, but since the user specified black, I'll proceed with that.
+
+Including a footer might be useful for contact info or additional links, but the user didn't mention it. Since they want a simple layout, perhaps keeping the footer minimal or omitting it altogether is better to avoid extra sections.
+
+Overall, the structure should be straightforward: header image, three main sections with headings and content, and maybe a closing note at the end. The design elements like gradients and textures should complement the candy theme without overshadowing the text.
 </think>
 
-**Prompt Tecnico per Sviluppo Web (Sistema Multi-Agente)**  
+**Schema Tecnico per Sito Web su Caramelle (Multi-Agente)**  
+*Formato adatto a un sistema di sviluppo web con agenti collaborativi*
 
 ---
 
-### **1. Obiettivo del Progetto**  
-Creare un sito web con il titolo **"Bambini e Camini"**, basato su quattro sezioni tematiche:  
-- Cicogne  
-- Bambini  
-- Camini  
-- Genitori  
-
-L'intero sito dovrà presentare un **sfondo celeste** e includere un'immagine nell'header. Il testo di tutte le sezioni dovrà essere visualizzato in **color fucsia**.
-
----
-
-### **2. Struttura del Sito Web**  
-#### **Pagina 1: Header + Sezione "Cicogne"**  
-- **Header**:  
-  - Immagine posizionata a sinistra o al centro (a seconda della layout scelto).  
-  - Titolo principale: **"Bambini e Camini"**, in stile leggero, colore nero.  
-- **Sezione "Cicogne"**:  
-  - Testo generico su cicogne, con link a ulteriori informazioni (se necessario).  
-  - Colore del testo: **fucsia**.  
-
-#### **Pagina 2: Sezioni "Bambini", "Camini" e "Genitori"**  
-- **Sezione "Bambini"**:  
-  - Testo generico su bambini, con link a ulteriori informazioni (se necessario).  
-  - Colore del testo: **fucsia**.  
-- **Sezione "Camini"**:  
-  - Testo generico sui camini, con link a ulteriori informazioni (se necessario).  
-  - Colore del testo: **fucsia**.  
-- **Sezione "Genitori"**:  
-  - Testo generico su genitori, con link a ulteriori informazioni (se necessario).  
-  - Colore del testo: **fucsia**.  
+### **1. Struttura del Contenuto**
+- **Sezioni principali**:  
+  - `ProcessoProduzione`  
+    - Descrizione: Fasi della produzione (es. estrazione, caramellizzazione, raffreddamento).  
+    - Tipo di dati: Testo strutturato, elenco puntato.  
+  - `ValoriNutrizionali`  
+    - Descrizione: Calorie, zuccheri, grassi, ecc. (grafico a barre o tabella).  
+    - Tipo di dati: Dati numerici, grafico interattivo.  
+  - `Svantaggi`  
+    - Descrizione: Effetti negativi su salute, dipendenza, impatto ambientale.  
+    - Tipo di dati: Testo con punti chiave.  
 
 ---
 
-### **3. Specifiche Tecniche**  
-#### **Stile Visivo**  
-- **Sfondo**: Celeste uniforme (`#87CEEB` o equivalente).  
-- **Testo**: Color fucsia (`#FF69B4`).  
-- **Font**: Standard (es. Arial, sans-serif), dimensioni leggibili.  
-
-#### **Layout**  
-- Header con immagine e titolo principale.  
-- Sezioni organizzate in ordine: Cicogne → Bambini → Camini → Genitori.  
-- Link interni tra le sezioni (se necessario).  
+### **2. Aspetto Visivo**
+- **Colore del testo**: Nero (standard).  
+- **Sfondo**: Fantasia dinamica (es. gradienti colorati o texture creative).  
+  - Esempio: Gradienti da rosa pastello a giallo acceso, con effetti di trama leggera.  
+- **Immagine testata**: Immagine di caramelle in primo piano (es. banner con dettagli visivi).  
+- **Font**: Standard leggibile (es. Arial, Helvetica), dimensione 16px per testo normale.  
 
 ---
 
-### **4. Componenti del Sistema Multi-Agente**  
-#### **Agenti Coinvolti**  
-1. **Agente Frontend**: Gestisce layout, stile e interfacce utente.  
-2. **Agente Backend**: Gestionale contenuti e link interni.  
-3. **Agente Design**: Definisce colori, font e layout.  
-4. **Agente SEO**: Ottimizza titoli e meta description per visibilità.  
-
-#### **Flusso di Lavoro**  
-1. **Agente Frontend** crea la struttura HTML/CSS con sfondo celeste e testo fucsia.  
-2. **Agente Backend** integra i contenuti delle sezioni e gestisce link interni.  
-3. **Agente Design** verifica che colori e font siano correttamente applicati.  
-4. **Agente SEO** ottimizza titoli e meta description per miglior visibilità sui motori di ricerca.  
+### **3. Layout**
+- **Monopagina** con sezioni distanziate (margini di 40px tra blocchi).  
+- **Ordine visivo**:  
+  1. Header (immagine + titolo generale).  
+  2. Sezione `ProcessoProduzione`.  
+  3. Sezione `ValoriNutrizionali` (grafico a barre o tabella).  
+  4. Sezione `Svantaggi`.  
+  5. Footer (opzionale: link, copyright).  
 
 ---
 
-### **5. Output Previsto**  
-- Sito web con due pagine, quattro sezioni tematiche.  
-- Header con immagine e titolo principale.  
-- Testo in color fucsia su sfondo celeste.  
-- Link interni tra le sezioni (se necessario).  
+### **4. Parametri di Design**
+- **Contrasto**: Testo nero su sfondo leggermente chiaro per massima leggibilità.  
+- **Grafici**:  
+  - Valori nutrizionali in barre colorate (es. rosso per zuccheri, verde per calorie).  
+  - Opzione di zoom/espansione per dettagli.  
+- **Texture**: Effetti di trama leggera su sfondo (es. texture di caramella o carta).  
 
---- 
+---
 
-**Nota**: Se richiesto, l'immagine nel header può essere sostituita o personalizzata in base a un logo o immagine rilevante al tema "Bambini e Camini".
+### **5. Funzionalità Aggiuntive**
+- **Agenti collaborativi**:  
+  - `AgenteContenuti`: Gestione testo e dati.  
+  - `AgenteDesign`: Controllo aspetto visivo (sfondo, colori, layout).  
+  - `AgenteGrafico`: Generazione grafici dinamici.  
+- **Interattività**:  
+  - Possibilità di espandere sezioni con pulsanti ("Mostra dettagli").  
+  - Grafico interattivo per valori nutrizionali (es. hover per dati).  
+
+---
+
+### **6. Output Finale**
+- **Formato**: HTML + CSS + JavaScript (per grafici dinamici).  
+- **Esportazione**: File singolo o sistema modulare con agenti dedicati.  
+- **Note**: Mantenere layout semplice, evitare sezioni extra.  
+
+---
+
+**Conclusione**:  
+Il sito sarà un'esperienza visivamente accattivante e informativa, strutturata in modo chiaro per utenti finali e sviluppatori multi-agente.

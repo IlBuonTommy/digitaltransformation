@@ -1,2 +1,19 @@
-Prompt aggiornato:  
-Realizzami un sito sugli orsi con una sola pagina principale che include le sezioni predefinite. Disponi le immagini sul lato sinistro della pagina per creare un layout chiaro e visivamente accattivante.
+<think>
+</think>
+
+**Prompt aggiornato completo**:  
+Vorrei un sito web che parli di caramelle. Deve parlare di processo di produzione, valori nutrizionali, svantaggi. Voglio che il colore dello sfondo sia una fantasia attrattiva (es. gradienti colorati o texture creative). Il testo dovrà essere nero.  
+
+**Informazioni aggiunte in base alle risposte dell'utente**:  
+- Non aggiungere sezioni extra, mantenendo un layout semplice e coerente.  
+- I titoli saranno personalizzati in base al contenuto (es. "Il Processo di Produzione", "Valori Nutrizionali", "Svantaggi").  
+- Per la terza e quarta domanda (probabilmente riferite alle sezioni o ai grafici) vanno bene i valori di default.  
+- Il testo sarà nero, come richiesto dall'utente.  
+
+**Parametri aggiunti**:  
+- Colore del testo: Nero  
+- Sfondo: Fantasia (gradienti colorati o texture creative)  
+- Layout: Monopagina con sezioni chiare e ben distanziate  
+- Immagini: Eventuali immagini di caramelle in testata e grafici a barre per i valori nutrizionali  
+
+Vuoi procedere con la creazione del sito?
