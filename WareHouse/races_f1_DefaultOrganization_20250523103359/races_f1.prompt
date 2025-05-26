@@ -1,0 +1,121 @@
+**Sistema Multi-Agente per lo Sviluppo Web: Configurazione e Architettura**  
+*Progetto: Races F1 | Target: Teenager | Tema: Formula 1*
+
+---
+
+### **1. Configurazione Generale del Sito**
+- **Nome sito**: `Races F1`  
+- **Target utente**: Adolescenti (età 13–19 anni)  
+- **Tema principale**: Macchine di Formula 1  
+- **Colore sfondo globale**: `#ff2600` (rosso acceso)  
+- **Colore testo**: Generato dinamicamente da AI (`text_color = AI.generate_text_color()`)  
+- **Stile generale**: Moderno, minimalista con elementi visivamente accattivanti per il target.  
+- **Modalità multi-agente**: Attiva (multi-agent architecture).  
+- **Numero di pagine**: 3  
+
+---
+
+### **2. Struttura delle Pagine**  
+Ogni pagina è gestita da un agente specifico (`PageAgent`) con attributi predefiniti.
+
+#### **Pagina 1: Home**
+- **Titolo**: `home`  
+- **Informazioni**:  
+  - Contenuto: Storia della Formula 1 (generato staticamente).  
+  - **Fonte dati**: Database storico o API di F1.  
+- **Immagine**: Foto di auto storiche di F1 (`image_path = "assets/images/f1_history.jpg"`).  
+- **Layout**: Pannello centrale con bordi rossi (`border-color: #ff2600`).  
+
+#### **Pagina 2: Charles Leclerc**
+- **Titolo**: `Charles Leclerc`  
+- **Informazioni**:  
+  - Contenuto: Generato da AI (`content = AI.generate_bio("Charles Leclerc")`).  
+- **Immagine**: Foto di Charles Leclerc (`image_path = "assets/images/leclerc.jpg"`).  
+- **Layout**: Pannello centrale con bordi rossi.  
+
+#### **Pagina 3: Lewis Hamilton**
+- **Titolo**: `Lewis Hamilton`  
+- **Informazioni**:  
+  - Contenuto: Generato da AI (`content = AI.generate_bio("Lewis Hamilton")`).  
+- **Immagine**: Foto di Lewis Hamilton (`image_path = "assets/images/hamilton.jpg"`).  
+- **Layout**: Pannello centrale con bordi rossi.  
+
+---
+
+### **3. Configurazione dello Stile (CSS)**  
+Gli agenti `StylingAgent` e `LayoutAgent` gestiscono le regole di design:  
+```css
+/* Stile globale */
+body {
+  background-color: #ff2600;
+  color: var(--text-color); /* Generato da AI */
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+/* Pannello centrale con bordi rossi */
+.panel {
+  margin: auto;
+  width: 80%;
+  max-width: 1200px;
+  border: 4px solid #ff2600;
+  padding: 2rem;
+  background-color: rgba(255, 38, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+```
+
+---
+
+### **4. Gestione delle Immagini**  
+- **Agente `ImageAgent`**:  
+  - Carica immagini da repository locale o API esterna (es: `https://f1-images.com`).  
+  - Validazione dimensioni e formato (`width: 100%; height: auto`).  
+
+---
+
+### **5. Generazione del Contenuto**  
+- **Agente `ContentGeneratorAgent`**:  
+  - Genera testo per pagine 2 e 3 utilizzando prompt specifici (es: "Descrivi Charles Leclerc come pilota di Formula 1").  
+  - Output in formato markdown o HTML.  
+
+---
+
+### **6. Gestione Utenti**  
+- **Tipo utente**: Privato (`user_type = "private"`).  
+- **Email per autenticazione**: `f1@ferrari.com` (configurata nel sistema di login).  
+- **Agente `UserAgent`**:  
+  - Autentica utenti tramite email e password.  
+  - Gestione accesso a contenuti riservati (se necessario).  
+
+---
+
+### **7. Layout e Struttura**  
+- **Agente `LayoutAgent`**:  
+  - Pannello centrale per ogni pagina (`<div class="panel">`).  
+  - Header con logo e menu (stile moderno, colore rosso).  
+  - Footer con informazioni legali e link social.  
+
+---
+
+### **8. Configurazione Multi-Agente**  
+- **Agenti principali**:  
+  1. `PageAgent` (gestione pagine).  
+  2. `StylingAgent` (CSS e layout).  
+  3. `ContentGeneratorAgent` (generazione testo AI).  
+  4. `ImageAgent` (gestione immagini).  
+  5. `UserAgent` (autenticazione utenti).  
+
+- **Comunicazione**:  
+  - API REST per scambio dati tra agenti.  
+  - Event-driven per aggiornamenti in tempo reale.  
+
+---
+
+### **9. Note Finali**  
+- Tutte le informazioni sono centralizzate nel pannello con bordi rossi (`#ff2600`).  
+- Il sistema è scalabile: aggiunta di nuove pagine o agenti richiede solo modifiche al `PageAgent`.  
+- Test su dispositivi mobili e desktop per garantire compatibilità.  
+
+--- 
+
+**Output finale**: Architettura modulare, adatta a un'implementazione in Python (con Flask/Django) o JavaScript (React/Vue).

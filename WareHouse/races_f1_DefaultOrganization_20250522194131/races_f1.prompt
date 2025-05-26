@@ -1,0 +1,90 @@
+**Configurazione del Sistema Multi-Agente per lo Sviluppo Web**  
+*Progetto: Races F1 | Target: Teenager | Tema: Formula 1*
+
+---
+
+### **1. Configurazione Generale**
+- **Nome sito**: `Races F1`  
+- **Target utenti**: Teenager (età 13–19 anni)  
+- **Tema principale**: Macchine di Formula 1  
+- **Colore sfondo globale**: `#ff2600` (rosso acceso)  
+- **Stile generale**: Moderno, minimalista, con focus su immagini e testi accattivanti.  
+- **Modalità multi-agente**: Attiva per gestione dinamica di contenuti, layout e interazioni.  
+- **Numero pagine totali**: `3`  
+
+---
+
+### **2. Struttura delle Pagine**  
+#### **Pagina 1: Home**
+- **Titolo**: `home`  
+- **Informazioni (testo)**:  
+  - Descrizione della storia della Formula 1.  
+  - Contenuto generato da un agente di contenuti (`AI_Content_Generator`).  
+- **Immagine**:  
+  - `foto_di_auto_storiche_di_F1` (es. auto come Ferrari 288 GTO, McLaren Senna).  
+- **Layout**:  
+  - Pannello centrale con bordi rossi (`border: 4px solid #ff2600`).  
+  - Testo in colore dinamico generato da un agente di stile (`AI_Text_Color_Generator`).  
+
+#### **Pagina 2: Charles Leclerc**
+- **Titolo**: `Charles Leclerc`  
+- **Informazioni (testo)**:  
+  - Contenuto generato da un agente di contenuti (`AI_Content_Generator`).  
+  - Dettagli su carriera, record e stile di guida.  
+- **Immagine**:  
+  - `foto_di_charles_leclerc` (es. immagine in posa o durante una gara).  
+- **Layout**:  
+  - Pannello centrale con bordi rossi (`border: 4px solid #ff2600`).  
+
+#### **Pagina 3: Lewis Hamilton**
+- **Titolo**: `Lewis Hamilton`  
+- **Informazioni (testo)**:  
+  - Contenuto generato da un agente di contenuti (`AI_Content_Generator`).  
+  - Dettagli su carriera, record e impegno sociale.  
+- **Immagine**:  
+  - `foto_del_personaggio` (es. immagine in posa o durante una gara).  
+- **Layout**:  
+  - Pannello centrale con bordi rossi (`border: 4px solid #ff2600`).  
+
+---
+
+### **3. Configurazione dello Stile**  
+- **Pannello centrale**:  
+  - Posizionamento: `flex`, `justify-content: center`, `align-items: center`.  
+  - Dimensioni: `max-width: 80%`, `margin: auto`.  
+  - Bordo: `border: 4px solid #ff2600` (stesso colore del background).  
+- **Testo**:  
+  - Colore dinamico generato da un agente (`AI_Text_Color_Generator`) per garantire contrasto visivo.  
+- **Font**:  
+  - Moderno (es. `Roboto`, `Montserrat`).  
+  - Dimensioni: `font-size: 18px` per testo principale, `14px` per sottotitoli.  
+
+---
+
+### **4. Gestione Multi-Agente**  
+- **Agenti coinvolti**:  
+  1. **AI_Content_Generator**: Genera testi dinamici per pagine 2 e 3.  
+  2. **AI_Text_Color_Generator**: Calcola colore del testo in base al background (`#ff2600`).  
+  3. **Image_Handler**: Gestisce caricamento e ottimizzazione delle immagini (es. `foto_di_auto_storiche_di_F1`, `foto_di_charles_leclerc`).  
+  4. **Layout_Manager**: Applica lo stile del pannello centrale con bordi rossi.  
+
+---
+
+### **5. Informazioni Utente**  
+- **Tipo utente**: Privato  
+- **Email di contatto**: `f1@ferrari.com`  
+- **Note**: Tutte le pagine devono rispettare lo stile unificato con pannello centrale e bordi rossi.  
+
+---
+
+### **6. Parametri Tecnici**  
+- **Formato output**: JSON o XML per integrazione con sistema multi-agente.  
+- **Modalità di esecuzione**:  
+  - `multi`: Attiva agenti paralleli per generazione contenuti, layout e ottimizzazione.  
+- **Requisiti tecnici**:  
+  - Supporto per immagini responsive (`srcset`).  
+  - Gestione dinamica dei colori tramite variabili CSS.  
+
+---
+
+**Output finale**: Struttura modulare adatta a un sistema multi-agente, con parametri chiari e separazione delle responsabilità (contenuti, stile, layout).
