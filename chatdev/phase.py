@@ -314,11 +314,56 @@ class DemandAnalysis(Phase):
         super().__init__(**kwargs)
 
     def update_phase_env(self, chat_env):
+        # Questo metodo è attualmente 'pass', quindi non ci sono preparazioni
+        # specifiche dell'ambiente di fase che andrebbero perse bypassando la chat.
         pass
 
     def update_chat_env(self, chat_env) -> ChatEnv:
-        if len(self.seminar_conclusion) > 0:
+        # Assicuriamoci che la modalità sia 'website' e registriamo l'informazione.
+        # Questa funzione verrebbe comunque chiamata dopo aver impostato self.seminar_conclusion.
+        if hasattr(self, 'seminar_conclusion') and self.seminar_conclusion and len(self.seminar_conclusion) > 0:
+            # Questa riga è sicura, reimposterà semplicemente la modalità a "website"
+            # se seminar_conclusion è "<INFO> Website".
             chat_env.env_dict['modality'] = self.seminar_conclusion.split("<INFO>")[-1].lower().replace(".", "").strip()
+        else:
+            # Fallback nel caso seminar_conclusion non sia impostato come previsto,
+            # anche se lo imposteremo nel metodo execute.
+            chat_env.env_dict['modality'] = "website"
+        
+        # Loggiamo che la modalità è stata confermata/impostata senza chiamata LLM per questa fase.
+        log_visualize(
+            "**[Demand Analysis Info]** Modality confirmed as: {}".format(chat_env.env_dict['modality'])
+        )
+        return chat_env
+
+    def execute(self, chat_env, chat_turn_limit, need_reflect) -> ChatEnv:
+        self.update_phase_env(chat_env)
+
+        # Bypass della chiamata LLM per la selezione della modalità,
+        # poiché è predefinita a "website".
+        log_visualize(
+            "**[Phase Execution]** Skipping LLM call in DemandAnalysis. Modality is fixed to 'website'."
+        )
+        self.seminar_conclusion = "<INFO> Website"  # Imposta la conclusione attesa per coerenza
+        chat_env.env_dict['modality'] = "website"    # Assicura che sia impostata in chat_env
+
+        # La chiamata originale a self.chatting(...) viene rimossa/commentata:
+        # self.seminar_conclusion = \
+        #     self.chatting(chat_env=chat_env,
+        #                   task_prompt=chat_env.env_dict['task_prompt'],
+        #                   need_reflect=need_reflect,
+        #                   assistant_role_name=self.assistant_role_name,
+        #                   user_role_name=self.user_role_name,
+        #                   phase_prompt=self.phase_prompt,
+        #                   phase_name=self.phase_name,
+        #                   assistant_role_prompt=self.assistant_role_prompt,
+        #                   user_role_prompt=self.user_role_prompt,
+        #                   chat_turn_limit=chat_turn_limit,
+        #                   placeholders=self.phase_env,
+        #                   memory=chat_env.memory,
+        #                   model_type=self.model_type)
+
+        chat_env = self.update_chat_env(chat_env)
         return chat_env
 
 

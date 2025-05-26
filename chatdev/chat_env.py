@@ -63,7 +63,7 @@ class ChatEnv:
             "directory": "",
             "task_prompt": "",
             "task_description":"",
-            "modality": "",
+            "modality": "website",
             "ideas": "",
             "language": "",
             "review_comments": "",
@@ -201,15 +201,15 @@ class ChatEnv:
 
         meta_filename = "meta.txt"
         with open(os.path.join(directory, meta_filename), "w", encoding="utf-8") as writer:
-            writer.write("{}:\n{}\n\n".format("Task", self.env_dict['task_prompt']))
-            writer.write("{}:\n{}\n\n".format("Config", self.config.__str__()))
-            writer.write("{}:\n{}\n\n".format("Roster", ", ".join(self.roster.agents)))
-            writer.write("{}:\n{}\n\n".format("Modality", self.env_dict['modality']))
-            writer.write("{}:\n{}\n\n".format("Ideas", self.env_dict['ideas']))
-            writer.write("{}:\n{}\n\n".format("Language", self.env_dict['language']))
-            writer.write("{}:\n{}\n\n".format("Code_Version", self.codes.version))
-            writer.write("{}:\n{}\n\n".format("Proposed_images", len(self.proposed_images.keys())))
-            writer.write("{}:\n{}\n\n".format("Incorporated_images", len(self.incorporated_images.keys())))
+            writer.write("{}:\\n{}\\n\\n".format("Task", self.env_dict['task_prompt']))
+            writer.write("{}:\\n{}\\n\\n".format("Config", self.config.__str__()))
+            writer.write("{}:\\n{}\\n\\n".format("Roster", ", ".join(self.roster.agents)))
+            writer.write("{}:\\n{}\\n\\n".format("Modality", "website"))
+            writer.write("{}:\\n{}\\n\\n".format("Ideas", self.env_dict['ideas']))
+            writer.write("{}:\\n{}\\n\\n".format("Language", self.env_dict['language']))
+            writer.write("{}:\\n{}\\n\\n".format("Code_Version", self.codes.version))
+            writer.write("{}:\\n{}\\n\\n".format("Proposed_images", len(self.proposed_images.keys())))
+            writer.write("{}:\\n{}\\n\\n".format("Incorporated_images", len(self.incorporated_images.keys())))
         print(os.path.join(directory, meta_filename), "Wrote")
 
     def generate_images_from_codes(self):

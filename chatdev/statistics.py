@@ -1,4 +1,5 @@
 import os
+import re  # Assicurati che 're' sia importato
 
 import numpy as np
 
@@ -36,7 +37,68 @@ def prompt_cost(model_type: str, num_prompt_tokens: float, num_completion_tokens
     return num_prompt_tokens * input_cost_map[model_type] / 1000.0 + num_completion_tokens * output_cost_map[model_type] / 1000.0
 
 
-def get_info(dir, log_filepath):
+def get_info(directory, log_filepath):
+    num_files = 0
+    num_lines = 0
+    num_png_files = 0
+    # Default version_updates a 0.0, verrà aggiornato se troviamo informazioni.
+    # Se c'è almeno un file, considereremo almeno 1 versione/stato.
+    version_updates_float = 0.0
+
+    if os.path.exists(directory):
+        for root, dirs, files in os.walk(directory):
+            for file_name in files:
+                num_files += 1
+                try:
+                    filepath = os.path.join(root, file_name)
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        num_lines += len(f.readlines())
+                    if file_name.endswith(".png"):
+                        num_png_files += 1
+                except Exception:
+                    # Ignora file che non possono essere letti o altri errori
+                    pass
+
+    if num_files > 0:  # Se ci sono file, c'è almeno la versione iniziale
+        version_updates_float = 1.0
+
+    if os.path.exists(log_filepath):
+        with open(log_filepath, "r", encoding="utf-8") as f:
+            log_lines = f.readlines()
+        log_lines = [line.strip() for line in log_lines]
+
+        rewrite_code_log_entries = [line for line in log_lines if line.startswith("**[Rewrite Codes]**")]
+        if rewrite_code_log_entries:
+            last_rewrite_line = rewrite_code_log_entries[-1]
+            match = re.search(r'\(([\d.]+)\)$', last_rewrite_line)
+            if match:
+                try:
+                    # last_version_logged è l'ultimo numero di versione registrato (es. 0.0, 1.0)
+                    last_version_logged = float(match.group(1))
+                    # Se la versione 0.0 è la prima, e l'ultima loggata è N.0,
+                    # allora ci sono N.0 + 1 stati di versione.
+                    version_updates_float = last_version_logged + 1.0
+                except ValueError:
+                    # Se la conversione fallisce, manteniamo il default basato su num_files
+                    # print(f"Warning: statistics.py - Could not parse version from log: {last_rewrite_line}")
+                    pass  # Già gestito dal default basato su num_files se > 0
+            # else:
+            # print(f"Warning: statistics.py - Version pattern not found in rewrite log: {last_rewrite_line}")
+        # else:
+        # print(f"Warning: statistics.py - '**[Rewrite Codes]**' not found in logs.")
+    # else:
+    # print(f"Warning: statistics.py - Log file not found: {log_filepath}")
+
+    # Costruzione della stringa di informazioni
+    # Assicurati che i nomi delle variabili e il formato corrispondano a come viene usato il risultato.
+    info_str = "num_files={}".format(num_files)
+    info_str += "\nnum_lines={}".format(num_lines)
+    info_str += "\nnum_png_files={}".format(num_png_files)
+    # Il conteggio delle versioni/aggiornamenti è spesso un intero.
+    info_str += "\nversion_updates_count={}".format(int(version_updates_float))
+
+    return info_str
+
     print("dir:", dir)
 
     model_type = ""
