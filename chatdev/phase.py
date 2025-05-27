@@ -377,13 +377,29 @@ class LanguageChoose(Phase):
                                "modality": chat_env.env_dict['modality'],
                                "ideas": chat_env.env_dict['ideas']})
 
+    def execute(self, chat_env: ChatEnv, chat_turn_limit: int, need_reflect: bool) -> ChatEnv:
+        self.update_phase_env(chat_env)
+
+        log_visualize(
+            "**[Phase Execution]** Skipping LLM call in LanguageChoose. Language is hardcoded to 'HTML, CSS, JavaScript'."
+        )
+        self.seminar_conclusion = "<INFO> HTML, CSS, JavaScript"
+        # Directly set in chat_env as well for robustness, though update_chat_env should handle it
+        chat_env.env_dict['language'] = "html, css, javascript"
+
+        chat_env = self.update_chat_env(chat_env)
+        return chat_env
+
     def update_chat_env(self, chat_env) -> ChatEnv:
-        if len(self.seminar_conclusion) > 0 and "<INFO>" in self.seminar_conclusion:
+        if hasattr(self, 'seminar_conclusion') and self.seminar_conclusion and len(self.seminar_conclusion) > 0 and "<INFO>" in self.seminar_conclusion:
             chat_env.env_dict['language'] = self.seminar_conclusion.split("<INFO>")[-1].lower().replace(".", "").strip()
-        elif len(self.seminar_conclusion) > 0:
-            chat_env.env_dict['language'] = self.seminar_conclusion
+        elif hasattr(self, 'seminar_conclusion') and self.seminar_conclusion and len(self.seminar_conclusion) > 0:
+            chat_env.env_dict['language'] = self.seminar_conclusion.lower().replace(".", "").strip()
         else:
-            chat_env.env_dict['language'] = "Python"
+            # Fallback, though execute should always set seminar_conclusion
+            chat_env.env_dict['language'] = "html, css, javascript"
+        
+        log_visualize(f"**[ChatDev]** Language chosen: {chat_env.env_dict['language']}")
         return chat_env
 
 
