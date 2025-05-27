@@ -25,12 +25,12 @@ def log_visualize(role, content=None):
 
     """
     if not content:
-        logging.info(role + "\n")
+        logging.info(role + "\\n")
         send_msg("System", role)
-        print(role + "\n")
+        # print(role + "\\n")
     else:
-        print(str(role) + ": " + str(content) + "\n")
-        logging.info(str(role) + ": " + str(content) + "\n")
+        # print(str(role) + ": " + str(content) + "\\n")
+        logging.info(str(role) + ": " + str(content) + "\\n")
         if isinstance(content, SystemMessage):
             records_kv = []
             content.meta_dict["content"] = content.content
