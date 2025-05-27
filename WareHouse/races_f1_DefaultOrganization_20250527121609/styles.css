@@ -1,0 +1,51 @@
+'''
+CSS for the "Races F1" website with global styling, responsive design, and dynamic color configuration.
+'''
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ff2600; /* Global red background */
+    color: white;
+}
+header {
+    background-color: #cc0000;
+    padding: 15px 20px;
+    text-align: center;
+}
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
+.page-content {
+    background-color: #ff2600;
+    border: 2px solid red; /* Red border as per config */
+    padding: 20px;
+    width: 80%;
+    max-width: 1000px;
+    text-align: center;
+}
+footer {
+    background-color: #cc0000;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-content {
+        width: 95%;
+        padding: 15px;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
