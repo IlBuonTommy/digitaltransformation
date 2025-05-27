@@ -11,7 +11,7 @@ API_URL = "http://127.0.0.1:1234/v1/chat/completions"
 DATI_UTENTE_PATH = "dati_utente.txt"
 PROMPT_CHATDEV_PATH = "prompt_chatdev.txt"
 CHATDEV_RUN_FILE = "run.py"
-PYTHON_EXECUTABLE = "python3"  # Cambia in "python3" o percorso completo se necessario
+PYTHON_EXECUTABLE = "python"
 PROJECT_NAME = "progetto_sito_generato" # Nome di default per il progetto ChatDev
 
 def chatdev_invoke(final_prompt: str, project_name: str = PROJECT_NAME):

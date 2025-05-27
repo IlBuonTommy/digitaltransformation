@@ -1,96 +1,61 @@
-```json
-{
-  "site_info": {
-    "nome_sito": "Races F1",
-    "target": "teenager",
-    "tema": "macchine di formula 1",
-    "colore_sfondo": "#ff2600",
-    "colore_testo": "generato_da_ai",
-    "stile": "moderno",
-    "mode": "multi",
-    "num_pages": 3,
-    "user_type": "privato",
-    "email_privato": "f1@ferrari.com"
-  },
-  "design": {
-    "pannello_centrale": {
-      "bordi": "#ff2600",
-      "layout": "centrato",
-      "margini": "auto",
-      "padding": "2rem"
-    }
-  },
-  "pages": [
-    {
-      "page_num": 1,
-      "title": "home",
-      "info": "storia della formula uno",
-      "img": "foto di auto storiche di F1",
-      "tipo_contenuto": "statico"
-    },
-    {
-      "page_num": 2,
-      "title": "Charles Leclerc",
-      "info": "generato_da_ai",
-      "img": "foto di charles leclerc",
-      "tipo_contenuto": "dinamico"
-    },
-    {
-      "page_num": 3,
-      "title": "Lewis Hamilton",
-      "info": "generato_da_ai",
-      "img": "foto del personaggio",
-      "tipo_contenuto": "dinamico"
-    }
-  ],
-  "agent_tasks": {
-    "layout_agent": {
-      "responsabilità": [
-        "creare un pannello centrale con bordi rossi (#ff2600)",
-        "assegnare lo sfondo al colore #ff2600",
-        "gestire il layout responsivo per dispositivi mobili"
-      ]
-    },
-    "content_agent": {
-      "responsabilità": [
-        "generare testo dinamico per page_2_info e page_3_info",
-        "ottimizzare contenuti per target teenager",
-        "integrare immagini con descrizioni contestuali"
-      ]
-    },
-    "image_agent": {
-      "responsabilità": [
-        "selezionare immagini ad alta risoluzione di auto storiche e piloti",
-        "assicurarsi che le immagini siano in formato web-friendly (JPEG/PNG)",
-        "aggiungere attributi alt descrittivi"
-      ]
-    }
-  },
-  "note_tecniche": {
-    "stili_css": [
-      ".pannello_centrale { border: 5px solid #ff2600; margin: auto; padding: 2rem; }",
-      "body { background-color: #ff2600; color: generato_da_ai; font-family: sans-serif; }"
-    ],
-    "modulo_di_sviluppo": {
-      "multi_agent": true,
-      "divisione_lavoro": [
-        "layout_agent (UI/UX)",
-        "content_agent (testi e SEO)",
-        "image_agent (immagini e ottimizzazione)"
-      ]
-    }
-  }
-}
-```
+**Configurazione Sito Web - Races F1**  
+*Target: Teenager | Tema: Macchine di Formula 1*  
 
-### Descrizione Tecnica
-- **Struttura modulare**: Il sistema è diviso in sezioni chiare per facilitare la gestione multi-agente.
-- **Pannello centrale**: Specificato con bordi rossi (#ff2600) e layout centrato, adatto a contenuti dinamici.
-- **Contenuti dinamici**: Le pagine 2 e 3 richiedono generazione di testo da parte dell'AI (marcato come `generato_da_ai`).
-- **Agent Tasks**: Definiti ruoli specifici per ogni agente, con responsabilità chiare.
-- **Stili CSS**: Inclusi codici diretti per il layout e i colori, con variabili per elementi dinamici.
+---
 
-### Note Aggiuntive
-- Le immagini devono essere ottimizzate per velocità di caricamento (es. compressione JPEG).
-- Il colore del testo (`generato_da_ai`) deve essere selezionato in base al contrasto con lo sfondo rosso.
-- La pagina "home" è statica, mentre le altre richiedono integrazione dinamica di dati.
+### **1. Dati Generali del Sito**  
+- **Nome sito**: `Races_F1`  
+- **Colore sfondo**: `#ff2600` (rosso acceso)  
+- **Stile**: Moderno  
+- **Modalità**: Multi-agente  
+- **Numero di pagine**: 3  
+
+---
+
+### **2. Configurazione delle Pagine**  
+#### **Pagina 1: Home**  
+- **Titolo**: `Home`  
+- **Contenuto**:  
+  - **Informazioni**: "Storia della Formula Uno" (testo statico)  
+  - **Immagine**: `foto_auto_storiche_F1.jpg`  
+- **Layout**: Pannello centrale con bordi rossi (`#ff2600`).  
+
+#### **Pagina 2: Charles Leclerc**  
+- **Titolo**: `Charles Leclerc`  
+- **Contenuto**:  
+  - **Informazioni**: `[AI_GENERATED]` (testo dinamico)  
+  - **Immagine**: `foto_charles_leclerc.jpg`  
+- **Layout**: Pannello centrale con bordi rossi (`#ff2600`).  
+
+#### **Pagina 3: Lewis Hamilton**  
+- **Titolo**: `Lewis Hamilton`  
+- **Contenuto**:  
+  - **Informazioni**: `[AI_GENERATED]` (testo dinamico)  
+  - **Immagine**: `foto_lewis_hamilton.jpg`  
+- **Layout**: Pannello centrale con bordi rossi (`#ff2600`).  
+
+---
+
+### **3. Configurazione Utente**  
+- **Tipo utente**: Privato  
+- **Email privata**: `f1@ferrari.com`  
+- **Note aggiuntive**:  
+  - Tutte le informazioni sulle pagine devono essere posizionate in un **pannello centrale con bordi rossi**.  
+
+---
+
+### **4. Specifiche Tecniche per il Sistema Multi-Agente**  
+- **Agenti previsti**:  
+  - `Agente_Layout`: Gestisce il layout delle pagine (pannelli centrali, colori).  
+  - `Agente_Dati`: Raccoglie e organizza informazioni statiche/dinamiche.  
+  - `Agente_Media`: Gestisce immagini e risorse multimediali.  
+- **Interfaccia utente**:  
+  - Colori: Sfondo `#ff2600`, testo `[AI_GENERATED]` (da definire dinamicamente).  
+  - Struttura: Pannelli centrali con bordi rossi per ogni pagina.  
+
+---
+
+### **5. Note Finali**  
+- Il colore del testo (`colore_testo`) è da generare tramite AI in base al contesto.  
+- Le informazioni dinamiche (`[AI_GENERATED]`) devono essere elaborate dagli agenti di dati o dall'utente.  
+- La modalità "multi" richiede sincronizzazione tra agenti per garantire coerenza del layout e dei contenuti.
