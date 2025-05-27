@@ -130,7 +130,7 @@ HTML = """
 <body>
   <div class="container">
     <h1>BENVENUTO SU WEB-AI!</h1>
-    <p class="subtitle">Compila il seguente form con le caratteristiche che vorresti avesse il tuo sito web. Dove possibile, clicca &quot;Usa AI&quot; per lasciare completa libertà all'intelligenza artificiale</p>
+    <p class="subtitle">Compila il seguente form con le caratteristiche che vorresti avesse il tuo sito web. Dove possibile, clicca &quot;Usa AI&quot; per lasciarti ispirare dall'intelligenza artificiale</p>
     <form id="wizardForm" method="post" action="/">
       <!-- STEP 1 -->
       <div class="step active" id="step1">
@@ -377,6 +377,89 @@ HTML = """
         }
     }
 
+    // Funzione per generare contenuto AI per i campi "Info pagina"
+    async function generateAiContentForPageInfo(targetTextarea, aiButton) {
+      const originalButtonText = aiButton.textContent; // Should be "Usa AI" when called
+      aiButton.textContent = 'Generazione...';
+      aiButton.disabled = true;
+
+      // 1. Collect form data
+      const nomeSito = document.querySelector('input[name="nome_sito"]').value || "Non specificato";
+      const targetUtenti = document.querySelector('input[name="target"]').value || "Non specificato";
+      const temaSito = document.querySelector('textarea[name="tema"]').value || "Non specificato";
+      const coloreSfondo = document.getElementById('colore_sfondo_input').value;
+      const coloreTesto = document.getElementById('colore_testo_input').value;
+      const stileSito = document.querySelector('select[name="stile"]').value;
+
+      let pageTitle = "Informazioni generali della pagina"; 
+      if (targetTextarea.id === 'single_page_info') {
+        const singlePageTitleInput = document.querySelector('input[name="single_page_title"]');
+        if (singlePageTitleInput && singlePageTitleInput.value) {
+          pageTitle = singlePageTitleInput.value;
+        }
+      } else if (targetTextarea.id.startsWith('page_') && targetTextarea.id.endsWith('_info')) {
+        const pageIdParts = targetTextarea.id.split('_'); 
+        const pageNumber = pageIdParts[1];
+        const multiPageTitleInput = document.querySelector(`input[name="page_${pageNumber}_title"]`);
+        if (multiPageTitleInput && multiPageTitleInput.value) {
+          pageTitle = multiPageTitleInput.value;
+        } else {
+          pageTitle = `Pagina ${pageNumber}`;
+        }
+      }
+
+      const promptLines = [
+        "Basandoti sulle seguenti informazioni, ma soprattutto in base a quanto riportato nel titolo della pagina, che è il seguente: '${pageTitle}'",
+        " genera un elenco di argomenti (massimo 6) che devono essere trattati nella pagina.",
+        "Non includere il titolo della pagina nella descrizione, solo l'elenco richiesto.",
+        "Caratteristiche del sito:",
+        `- Nome del Sito: ${nomeSito}`,
+        `- Target di riferimento: ${targetUtenti}`,
+        `- Tema/Argomenti trattati: ${temaSito}`,
+        `- Stile del Sito: ${stileSito}`,
+        `Informazioni specifiche per questa pagina (dal titolo '${pageTitle}'):`
+      ];
+      const prompt = promptLines.join('\\n');
+
+      try {
+        const response = await fetch('http://127.0.0.1:1234/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', },
+          body: JSON.stringify({
+            model: "qwen3-4b", // IMPORTANTE: Cambia se il nome del modello in LM Studio è diverso!
+            messages: [
+              { role: "system", content: "Sei un assistente AI specializzato nel generare testi brevi e persuasivi per sezioni di pagine web. Rispondi solo con il testo generato, senza frasi introduttive o conclusive." },
+              { role: "user", content: prompt }
+            ],
+            temperature: 0.7,
+            max_tokens: 2000 
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.text();
+          throw new Error(`Errore API: ${response.status} ${response.statusText}. Dettagli: ${errorData}`);
+        }
+
+        const data = await response.json();
+        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+          targetTextarea.value = data.choices[0].message.content.replace(/<think\\s*>[\\s\\S]*?<\\/think\\s*>/gi, '').trim();
+          targetTextarea.disabled = false; 
+          aiButton.classList.add('active'); 
+          aiButton.textContent = 'Manuale'; 
+        } else {
+          throw new Error("Risposta AI non valida o vuota.");
+        }
+      } catch (error) {
+        console.error("Errore chiamata LLM:", error);
+        alert(`Errore durante la generazione del testo con AI: ${error.message}\\nControlla che LM Studio sia in esecuzione, che un modello sia caricato, e che l'indirizzo (http://127.0.0.1:1234) e il nome del modello ('local-model') siano corretti.`);
+        aiButton.textContent = 'Usa AI'; 
+        aiButton.classList.remove('active');
+      } finally {
+        aiButton.disabled = false;
+      }
+    }
+
     function handleAiButtonClick(event) {
       const aiButton = event.target;
       const targetInputId = aiButton.dataset.target;
@@ -384,52 +467,62 @@ HTML = """
 
       if (!targetInput) return;
 
+      const isInfoTextArea = targetInput.id === 'single_page_info' || 
+                             (targetInput.id && targetInput.id.startsWith('page_') && targetInput.id.endsWith('_info'));
+
+      if (isInfoTextArea) {
+        if (aiButton.textContent === 'Manuale') { 
+          // AI content is present, user wants to revert to manual
+          targetInput.disabled = false;
+          if (targetInput.dataset.originalValueForAi !== undefined) {
+            targetInput.value = targetInput.dataset.originalValueForAi;
+          } else {
+            targetInput.value = ''; 
+          }
+          aiButton.classList.remove('active');
+          aiButton.textContent = 'Usa AI';
+        } else if (aiButton.textContent === 'Usa AI') { 
+          // User wants to generate AI content
+          targetInput.dataset.originalValueForAi = targetInput.value; // Save current manual content
+          generateAiContentForPageInfo(targetInput, aiButton); 
+        }
+        // If button text is "Generazione...", it's disabled, so no click event handled here.
+        return; 
+      }
+
+      // Original logic for other AI buttons (colors, etc.)
       const aiMarkerText = "Fai generare all'AI";
 
       if (aiButton.classList.contains('active')) {
-        // Deactivate AI: Switch back to manual
+        // Deactivate AI for non-info fields: Switch back to manual
         targetInput.disabled = false;
-        
         const originalType = targetInput.dataset.originalType;
-        const originalValue = targetInput.dataset.originalValue; // This was set when AI was activated
+        const originalValue = targetInput.dataset.originalValue;
 
-        if (originalType) { // If originalType was stored, it means it was a color input that we changed to text
-            targetInput.type = originalType; // Change back to 'color' (or its original type)
+        if (originalType) {
+            targetInput.type = originalType;
             delete targetInput.dataset.originalType;
         }
-
-        // Restore the original value.
-        // originalValue should have the color value (e.g., "#ffffff") stored when AI was activated.
-        // If originalValue is somehow undefined (which shouldn't happen with this logic),
-        // for color inputs, revert to its HTML defaultValue or a common default.
         if (originalValue !== undefined) {
             targetInput.value = originalValue;
         } else if (targetInput.type === 'color') {
-            // Fallback: use the input's default value as specified in HTML, or a hardcoded default
             targetInput.value = targetInput.defaultValue || '#ffffff'; 
         } else {
-            targetInput.value = ''; // Fallback for other input types
+            targetInput.value = '';
         }
-        
-        // Clean up the stored original value, as it's now restored or handled
         if (targetInput.dataset.originalValue !== undefined) {
             delete targetInput.dataset.originalValue;
         }
-
         aiButton.classList.remove('active');
         aiButton.textContent = 'Usa AI';
-
       } else {
-        // Activate AI
-        // Store the original value *before* any type change or value change
+        // Activate AI for non-info fields
         targetInput.dataset.originalValue = targetInput.value; 
-
         if (targetInput.type === 'color') {
-            targetInput.dataset.originalType = targetInput.type; // Store 'color'
-            targetInput.type = 'text'; // Change to text to display and submit the AI marker text
+            targetInput.dataset.originalType = targetInput.type;
+            targetInput.type = 'text';
         }
-        
-        targetInput.value = aiMarkerText; // Set the input's value to "Fai generare all'AI"
+        targetInput.value = aiMarkerText;
         targetInput.disabled = true;
         aiButton.classList.add('active');
         aiButton.textContent = 'Manuale';
@@ -467,13 +560,13 @@ def wizard():
                 lines.append(f"{key}: {value}")
         
         if lines: # Se ci sono righe da scrivere
-            content = "\n".join(lines) + "\n" + ("-"*40) + "\n"
+            content = "\n".join(lines) + "\n" + ("-"*40) + "\n";
         else: # Se tutti i campi erano vuoti (o non inviati e filtrati)
-            content = "Nessun dato compilato.\n" + ("-"*40) + "\n"
+            content = "Nessun dato compilato.\n" + ("-"*40) + "\n";
 
         # Apro (o creo) il file in write mode e scrivo
         with open("dati_utente.txt", "w", encoding="utf-8") as f:
-            f.write(content)
+            f.write(content);
 
         print(data)  # opzionale, per debug in console 
         return "<h2>Modulo inviato con successo!</h2><p>Controlla il terminale e il file dati_utente.txt</p>"
